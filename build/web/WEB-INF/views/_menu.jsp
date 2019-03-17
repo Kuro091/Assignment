@@ -19,7 +19,7 @@
             </a>
             ||
             <a href="${pageContext.request.contextPath}/manageUsers">
-                Manage users' Order
+                Manage users' Orders
             </a>
         </c:if>
         ||
