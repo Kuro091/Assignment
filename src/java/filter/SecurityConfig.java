@@ -30,7 +30,6 @@ public class SecurityConfig {
         List<String> urlPatterns1 = new ArrayList<String>();
  
         urlPatterns1.add("/userInfo");
-        
  
         mapConfig.put(ROLE_USER, urlPatterns1);
  

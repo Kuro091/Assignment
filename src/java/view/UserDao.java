@@ -61,7 +61,6 @@ public class UserDao {
                 }
                 u = new UserAccount(userName, password, role);
                 isAdmin = false; isUser = false;
-                System.out.println(u.toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);

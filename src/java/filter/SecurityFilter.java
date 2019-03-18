@@ -66,11 +66,13 @@ public class SecurityFilter implements Filter{
  
             // Wrap old request by a new Request with userName and Roles information.
             wrapRequest = new UserRoleRequestWrapper(userName, roles, request);
+            
+            System.out.println("USer is " + userName + "with roles" + roles);
+            
         }
         
         // Pages must be signed in.
         if (SecurityUtils.isSecurityPage(request)) {
- 
             // If the user is not logged in,
             // Redirect to the login page.
             if (loginedUser == null) {
@@ -83,7 +85,7 @@ public class SecurityFilter implements Filter{
                 response.sendRedirect(wrapRequest.getContextPath() + "/login?redirectId=" + redirectId);
                 return;
             }
- 
+            
             // Check if the user has a valid role?
             boolean hasPermission = SecurityUtils.hasPermission(wrapRequest);
             if (!hasPermission) {
