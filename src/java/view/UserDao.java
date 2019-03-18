@@ -41,16 +41,26 @@ public class UserDao {
 
             ResultSet rs = psmt.executeQuery();
             String role = "";
-
+            boolean isAdmin = false, isUser = false;
             if (rs.next()) {
-                if (rs.getString("Username").equalsIgnoreCase("admin")
-                        && rs.getString("Password").equalsIgnoreCase("admin")) {
-                    role = SecurityConfig.ROLE_ADMIN + "," + SecurityConfig.ROLE_USER;
-                } else {
+                String[] roles = rs.getString("Roles").split(",");
+                for(String oneRole: roles){
+                    if (oneRole.trim().equalsIgnoreCase("Admin")){
+                        isAdmin = true;
+                    }
+                    if (oneRole.trim().equalsIgnoreCase("User")){
+                        isUser = true;
+                    }
+                }
+                if(isAdmin && isUser){
+                    role = SecurityConfig.ROLE_ADMIN+", "+SecurityConfig.ROLE_USER;
+                }else if(isAdmin){
+                    role = SecurityConfig.ROLE_ADMIN;
+                }else if(isUser){
                     role = SecurityConfig.ROLE_USER;
                 }
-
                 u = new UserAccount(userName, password, role);
+                isAdmin = false; isUser = false;
                 System.out.println(u.toString());
             }
         } catch (SQLException ex) {
