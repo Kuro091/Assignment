@@ -10,8 +10,6 @@
             <file>file:/F:/JAVAWEB/Assignment/src/java/model/UserAccount.java</file>
             <file>file:/F:/JAVAWEB/Assignment/web/WEB-INF/views/accessDenied.jsp</file>
             <file>file:/F:/JAVAWEB/Assignment/src/java/filter/SecurityFilter.java</file>
-            <file>file:/F:/JAVAWEB/Assignment/web/WEB-INF/views/viewMatches.jsp</file>
-            <file>file:/F:/JAVAWEB/Assignment/src/java/filter/viewMatches.java</file>
         </group>
     </open-files>
 </project-private>
