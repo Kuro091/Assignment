@@ -3,6 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/C:/Users/admin/Documents/GitHub/Assignment/web/WEB-INF/views/Matches.jsp</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Assignment/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Assignment/web/WEB-INF/views/homeView.jsp</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Assignment/src/java/servlets/ShowMatches.java</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Assignment/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Assignment/src/java/view/MatchesManagement.java</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Assignment/src/java/model/Matches.java</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Assignment/src/java/context/DBContext.java</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Assignment/src/java/view/MatchesDao.java</file>
+=======
             <file>file:/F:/JAVAWEB/Assignment/src/java/filter/SecurityUtils.java</file>
             <file>file:/F:/JAVAWEB/Assignment/src/java/filter/SecurityConfig.java</file>
             <file>file:/F:/JAVAWEB/Assignment/web/WEB-INF/views/loginView.jsp</file>
@@ -10,6 +21,7 @@
             <file>file:/F:/JAVAWEB/Assignment/src/java/model/UserAccount.java</file>
             <file>file:/F:/JAVAWEB/Assignment/web/WEB-INF/views/accessDenied.jsp</file>
             <file>file:/F:/JAVAWEB/Assignment/src/java/filter/SecurityFilter.java</file>
+>>>>>>> 8b15986db370187dd2658ba1000caf0e9d3c7d00
         </group>
     </open-files>
 </project-private>

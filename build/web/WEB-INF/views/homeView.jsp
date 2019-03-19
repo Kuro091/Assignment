@@ -61,6 +61,10 @@
 
 
 
+<<<<<<< HEAD
+        <h3>Home Page   s</h3>
+=======
+>>>>>>> 8b15986db370187dd2658ba1000caf0e9d3c7d00
 
                     <form role="form" method="POST" action="${pageContext.request.contextPath}/login">
                         <div class="form-group mb-3">
