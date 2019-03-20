@@ -6,20 +6,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
-
-        <!-- Icons -->
-        <link href="assets/css/nucleo-icons.css" rel="stylesheet">
-        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
-        <!-- Theme CSS -->
-        <link type="text/css" href="assets/css/blk-design-system.min.css" rel="stylesheet">
-    </head>
-    <body>
         <nav class="navbar navbar-expand-lg fixed-top navbar-transparent" id="navbar">
             <div class="container">
                 <c:choose>
@@ -32,11 +18,10 @@
                 </c:choose>
                 <a class="navbar-brand" href="${pageContext.request.contextPath}">Bóng đá ticket thingy</a>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="<c:out value="${homeRef}"></c:out>">Home</a>
-                        </li>
-
+                            </li>
 
 
                         <c:if test="${empty loginedUser}">
@@ -55,24 +40,18 @@
                                 <a class="nav-link disabled" href="${pageContext.request.contextPath}/logout">Logout</a>
                             </li>
                         </c:if>
+
+
+
                     </ul>
+                    <c:if test="${not empty loginedUser}">
+                        <span class="navbar-text">
+                            Current credit: ${loginedUser.credit}
+                        </span>
+                    </c:if>
                 </div>
             </div>
         </nav>
-
-
-
-
-
-
-
-
-        <!-- Core -->
-        <script src="assets/vendor/jquery/jquery.min.js"></script>
-        <script src="assets/vendor/popper/popper.min.js"></script>
-        <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
-
-        <!-- Theme JS -->
         <script src="assets/js/blk-design-system.min.js"></script>
         <script>
             window.addEventListener('scroll', function (e) {
@@ -87,5 +66,3 @@
                 }
             });
         </script>
-    </body>
-</html>

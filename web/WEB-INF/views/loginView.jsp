@@ -23,38 +23,51 @@
         </style>
     </head>
 
-    <body>
+    <body class="register-page">
         <jsp:include page="_menu.jsp"></jsp:include>   
         <jsp:include page="_header.jsp"></jsp:include> 
-            
-<br/><br/>
-        <div class="container">
-            <h3>Login Page</h3>
-            <p style="color: red;">${errorMessage}</p>
-        
-            <form method="POST" action="${pageContext.request.contextPath}/login">
-                <input type="hidden" name="redirectId" value="${param.redirectId}" />
-                <div class="form-group">
-                    <label for="username">Username: </label>
-                    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter email" name="userName" value= "${user.userName}">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password" name="password" value= "${user.password}">
-                </div>
 
-                <input type="submit" value= "Submit" class="btn btn-primary"/>
-                <a href="${pageContext.request.contextPath}/">Cancel</a>
-            </form>
+            <div class="page-header">
+                <div class="container">
+                    <br/><br/>
+                    <h3>Login Page</h3>
+                    <div class="alert-danger"><p style="color: red;">${errorMessage}</p></div>
+                <div class="col-lg-5 col-md-6 offset-lg-0 offset-md-3">
+                    <div id="square7" class="square square-7"></div>
+                    <div id="square8" class="square square-8"></div>
+                </div>
+                <form method="POST" action="${pageContext.request.contextPath}/login">
+                    <input type="hidden" name="redirectId" value="${param.redirectId}" />
+                    <div class="form-group">
+                        <label for="username">Username: </label>
+                        <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter email" name="userName" value= "${user.userName}">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password" name="password" value= "${user.password}">
+                    </div>
+
+                    <input type="submit" value= "Submit" class="btn btn-primary"/>
+                    <a href="${pageContext.request.contextPath}/">Cancel</a>
+                </form>
+                <div class="register-bg"></div>
+                <div id="square1" class="square square-1"></div>
+                <div id="square2" class="square square-2"></div>
+                <div id="square3" class="square square-3"></div>
+                <div id="square4" class="square square-4"></div>
+                <div id="square5" class="square square-5"></div>
+                <div id="square6" class="square square-6"></div>
+            </div>
         </div>
-        <!-- Core -->
-        <script src="assets/js/core/jquery.min.js"></script>
-        <script src="assets/js/core/popper.min.js"></script>
-        <script src="assets/js/core/bootstrap.min.js"></script>
+    </div>
+    <!-- Core -->
+    <script src="assets/js/core/jquery.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
 
-        <!-- Theme JS -->
+    <!-- Theme JS -->
 
-        <script src="assets/js/blk-design-system.min.js"></script>
-    </body>
+    <script src="assets/js/blk-design-system.min.js"></script>
+</body>
 </html>

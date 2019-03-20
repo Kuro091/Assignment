@@ -20,3 +20,108 @@ and open the template in the editor.
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.box_team{
+    background-color: #130e3b;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.header_box_team{
+    border:1px solid #ccc;
+    border-bottom:none;
+    border-radius:5px 5px 0 0;
+}
+
+.info_start::before{
+    content:"";
+    display:block;
+    width:40px;
+    height:100%;
+    position:absolute;
+    left:15px;
+    border-radius:5px 0 0 0;
+    top:0;
+    background:#221c86;
+
+}
+.info_start,.info_start h3{
+    font-size:15px;
+    font-weight:300;
+}
+
+.match_box {
+    padding:0;
+    margin-top:25px;
+}
+.match_box .col-md-2{
+    vertical-align:top;
+    margin-top:10px;
+}
+.match_box .col-md-5{
+    font-size:16px;
+    font-weight:300;
+    vertical-align:top;
+}
+.match_box .col-md-5 p{
+    margin-bottom:0;
+    margin-top:10px;
+    font-weight: 400;
+}
+.match_box table{
+    width:100%;
+    text-align:center;
+}
+.info_start h3{
+    margin:0;
+    background:url(../img/name_match.png) no-repeat 8px;
+    padding-left:50px;
+    height:60px;
+    position:relative;
+    display:table-cell;
+    vertical-align:middle;
+    font-weight: bold;
+}
+.time_match{
+    background:url(../img/icon_time.png) no-repeat 8px;
+    padding-left:50px;
+    height:60px;
+    display:block;
+    position:relative;
+    font-weight:300;
+    line-height:60px;
+}
+.time_match_index {
+    background:url(../img/icon_time.png) no-repeat 8px;
+    padding-left:50px;
+    height:60px;
+    display:block;
+    border-top: 2px dashed #fff;
+    border-bottom: 2px dashed #fff;
+    position:relative;
+    font-weight:300;
+    line-height:60px;
+
+}
+.place_match{
+    background:url(../img/icon_stadium.png) no-repeat  11px;
+    padding-left:50px;
+    height:60px;
+    display:block;
+    font-weight:300;
+    line-height:60px;
+    position:relative;
+}
+
+.btn_buy_ticket{
+    width:100%;
+    border:none;
+    background:#4b42d1;
+    border-radius:0 0 5px 5px;
+    color:#fff;
+    text-align:center;
+    height:50px;
+    line-height:50px;
+    font-size:25px;
+    font-weight:700;
+}

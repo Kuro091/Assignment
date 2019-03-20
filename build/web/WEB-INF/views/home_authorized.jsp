@@ -23,13 +23,36 @@
         <style>
         </style>
     </head>
-    <body>
+    <body class ="profile-page">
         <jsp:include page="_menu.jsp"></jsp:include>
-            <br/>
-            <br/>
-            <br/>
-            <div class="container">
-                <h1>Username: ${loginedUser.userName}</h1>
+        <br/>
+        <div class="page-header">
+            <img src="assets/img/dots.png" class="dots">
+            <img src="assets/img/path4.png" class="path">
+            <div class="container align-items-center">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <h1 class="profile-title text-left">${loginedUser.userName}'s mainpage</h1>
+                        <h5 class="text-on-back">Mainpage</h5>
+                        <p class="profile-description">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br/>
+                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br/>
+                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br/></p>
+                        
+                    </div>
+                    <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                        <div class="card card-coin card-plain">
+                            <div class="card-header">
+                                <img src="assets/img/credit.png" class="img-center img-fluid rounded-circle">
+                                <h4 class="title">Transactions</h4>
+                            </div>
+                            <div class="card-body align-items-center wrapper">
+                                <h3 style="margin-left:15%">Your Credit: ${loginedUser.credit}</h3>
+                                <a href=""><h3 style="margin-left:15%"> Click to view your orders </h3></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 

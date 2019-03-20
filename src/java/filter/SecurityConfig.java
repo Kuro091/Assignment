@@ -29,6 +29,7 @@ public class SecurityConfig {
         // Configure For "USER" Role.
         List<String> urlPatterns1 = new ArrayList<String>();
  
+        urlPatterns1.add("/index");
         urlPatterns1.add("/viewMatches");
  
         mapConfig.put(ROLE_USER, urlPatterns1);
@@ -37,6 +38,7 @@ public class SecurityConfig {
         List<String> urlPatterns2 = new ArrayList<String>();
  
         urlPatterns2.add("/userInfo");
+        urlPatterns2.add("/index");
         urlPatterns2.add("/viewMatches");
         urlPatterns2.add("/manageUsers");
  

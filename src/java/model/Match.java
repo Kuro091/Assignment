@@ -88,7 +88,22 @@ public class Match {
         this.date = date;
     }
     
+    public String getDateString(){
+        return Integer.toString(getDate().getDate()) + "-" + Integer.toString(getDate().getMonth() + 1) + "-" + Integer.toString(getDate().getYear() + 1900);
+    }
     
+    public String getTimeString(){
+        return Integer.toString(getTime().getHours())+"h";
+    }
+    
+    public String getFlag(String str){
+        switch(str){
+            case "Viet Nam": return "assets/img/co_vietnam.png";
+            case "Indonesia": return "assets/img/indonesia-flag.jpg";
+            case "Thailand": return "assets/img/thailand-flag.jpg";
+        }
+        return "";
+    }
     
     
 }
