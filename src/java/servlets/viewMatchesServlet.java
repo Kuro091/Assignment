@@ -5,33 +5,22 @@
  */
 package servlets;
 
-import model.Matches;
 import context.DBContext;
-import java.sql.SQLException;
-import view.MatchesDao;
-import view.MatchesManagement;
-import java.util.ArrayList;
-
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import javax.servlet.RequestDispatcher;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import view.MatchesDao;
-import view.MatchesManagement;
-
-
+import model.Match;
+import view.MatchDao;
 
 /**
  *
- * @author admin
+ * @author Asus
  */
-@WebServlet(name = "Matches", urlPatterns = {"/Matches"})
-public class ShowMatches extends HttpServlet {
+public class viewMatchesServlet extends BaseServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,10 +39,10 @@ public class ShowMatches extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Matches</title>");            
+            out.println("<title>Servlet viewMatchesServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Matches at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet viewMatchesServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -72,22 +61,16 @@ public class ShowMatches extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
-            DBContext dbContext = new DBContext();
-            MatchesDao matchesdao = new MatchesDao(dbContext);
-            MatchesManagement matchesApp = new MatchesManagement(matchesdao);
-            
-            ArrayList<Matches> matches = matchesApp.getAllMatches();
+            ArrayList<Match> matches = getMatchDao().getAllMatches();
            // java.util.Date date = new java.util.Date(matches.get(0).getDatetime().getTime());
              //           SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
            // System.out.print(sdf.p);
             
             request.setAttribute("matches", matches);
             
-            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/Matches.jsp");
-            view.forward(request, response);
+            forward(request, response, "/WEB-INF/views/viewMatches.jsp");
             
         }catch(Exception e){
-            
         }
     }
 

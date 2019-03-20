@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import view.MatchDao;
 import view.UserDao;
 
 /**
@@ -24,6 +25,8 @@ public class BaseServlet extends HttpServlet {
     
     protected DBContext dbContext;
     protected UserDao userDao;
+    protected MatchDao matchDao;
+    
     public DBContext getDbContext() {
         return dbContext;
     }
@@ -31,11 +34,18 @@ public class BaseServlet extends HttpServlet {
     public UserDao getUserDao(){
         return userDao;
     }
+    
+    public MatchDao getMatchDao(){
+        return matchDao;
+    }
+    
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
         dbContext = new DBContext();
         userDao = new UserDao(dbContext);
+        matchDao = new MatchDao(dbContext);
+        
     }
     
     protected void forward(HttpServletRequest request, HttpServletResponse response, String path) throws ServletException, IOException

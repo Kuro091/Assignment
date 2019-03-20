@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author admin
  */
-public class Matches {
+public class Match {
     private int matchID;
     private String host;
     private String guest;
@@ -20,7 +20,7 @@ public class Matches {
     private int totalTicket;
     private Date date;
 
-    public Matches(int matchID, String host, String guest, Date time, String stadium, int totalTicket,Date date) {
+    public Match(int matchID, String host, String guest, Date time, String stadium, int totalTicket,Date date) {
         this.matchID = matchID;
         this.host = host;
         this.guest = guest;

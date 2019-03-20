@@ -6,7 +6,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
-<%@page import="model.Matches"%>
+<%@page import="model.Match"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,8 +25,8 @@
             </tr>
             
             <tbody>
-                <%  ArrayList<Matches> matches = (ArrayList<Matches>)request.getAttribute("matches");
-                    for(Matches m : matches)
+                <%  ArrayList<Match> matches = (ArrayList<Match>)request.getAttribute("matches");
+                    for(Match m : matches)
                        
                     {
                       //  java.util.Date date = new java.util.Date(m.getDate.getTime());

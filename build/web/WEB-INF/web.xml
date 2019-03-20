@@ -20,6 +20,10 @@
         <servlet-name>ShowMatches</servlet-name>
         <servlet-class>servlets.ShowMatches</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>viewMatchesServlet</servlet-name>
+        <servlet-class>servlets.viewMatchesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>homeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -36,9 +40,13 @@
         <servlet-name>indexServlet</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
-      <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ShowMatches</servlet-name>
         <url-pattern>/ShowMatches</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>viewMatchesServlet</servlet-name>
+        <url-pattern>/viewMatches</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

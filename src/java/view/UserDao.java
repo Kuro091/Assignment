@@ -40,7 +40,8 @@ public class UserDao {
             psmt.setString(2, password);
 
             ResultSet rs = psmt.executeQuery();
-            String role = "";
+            String[] role = new String[10];
+            int currentSize=-1;
             boolean isAdmin = false, isUser = false;
             if (rs.next()) {
                 String[] roles = rs.getString("Roles").split(",");
@@ -53,11 +54,15 @@ public class UserDao {
                     }
                 }
                 if(isAdmin && isUser){
-                    role = SecurityConfig.ROLE_ADMIN+", "+SecurityConfig.ROLE_USER;
+                    currentSize=0;
+                    role[currentSize] = SecurityConfig.ROLE_ADMIN;
+                    role[currentSize++] = SecurityConfig.ROLE_USER;
                 }else if(isAdmin){
-                    role = SecurityConfig.ROLE_ADMIN;
+                    currentSize=0;
+                    role[currentSize] = SecurityConfig.ROLE_ADMIN;
                 }else if(isUser){
-                    role = SecurityConfig.ROLE_USER;
+                    currentSize=0;
+                    role[currentSize] = SecurityConfig.ROLE_USER;
                 }
                 u = new UserAccount(userName, password, role);
                 isAdmin = false; isUser = false;

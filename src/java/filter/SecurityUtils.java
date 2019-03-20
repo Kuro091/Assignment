@@ -37,11 +37,7 @@ public class SecurityUtils {
                 continue;
             }
             List<String> urlPatterns = SecurityConfig.getUrlPatternsForRole(role);
-            
-            for(int i = 0 ; i< urlPatterns.size(); i++){
-                System.out.println("For role: " + role + " " + urlPatterns.get(i).toString());
-            }
-            
+            System.out.println("URL PATTERN + " + urlPatterns);
             if (urlPatterns != null && urlPatterns.contains(urlPattern)) {
                 return true;
             }

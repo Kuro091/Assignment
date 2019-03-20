@@ -66,9 +66,6 @@ public class SecurityFilter implements Filter{
  
             // Wrap old request by a new Request with userName and Roles information.
             wrapRequest = new UserRoleRequestWrapper(userName, roles, request);
-            
-            System.out.println("USer is " + userName + "with roles" + roles);
-            
         }
         
         // Pages must be signed in.
@@ -90,7 +87,7 @@ public class SecurityFilter implements Filter{
             boolean hasPermission = SecurityUtils.hasPermission(wrapRequest);
             if (!hasPermission) {
  
-                RequestDispatcher dispatcher //
+                RequestDispatcher dispatcher
                         = request.getServletContext().getRequestDispatcher("/WEB-INF/views/accessDenied.jsp");
  
                 dispatcher.forward(request, response);

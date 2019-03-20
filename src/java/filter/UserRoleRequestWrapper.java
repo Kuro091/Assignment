@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 public class UserRoleRequestWrapper extends HttpServletRequestWrapper {
  
     private String user;
+
     private List<String> roles = null;
     private HttpServletRequest realRequest;
  
@@ -42,6 +43,10 @@ public class UserRoleRequestWrapper extends HttpServletRequestWrapper {
         if (roles == null) {
             return this.realRequest.isUserInRole(role);
         }
+        for(String s: roles){
+            System.out.println("----" + s);
+        }
+        System.out.println("ROLES WHICH ARE " + roles + " DO CONTAIN ROLE WHICH IS " + role +" So IT Is " + roles.contains(role));
         return roles.contains(role);
     }
  

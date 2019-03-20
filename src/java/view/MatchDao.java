@@ -5,7 +5,7 @@
  */
 package view;
 
-import model.Matches;
+import model.Match;
 import context.DBContext;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,24 +19,24 @@ import java.util.ArrayList;
  *
  * @author admin
  */
-public class MatchesDao {
+public class MatchDao {
       private Connection connection;
 
-    public MatchesDao(DBContext dbContext) {
+    public MatchDao(DBContext dbContext) {
         try {
             connection = dbContext.getConnection();
         } catch (Exception ex) {
-            Logger.getLogger(MatchesDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MatchDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public ArrayList<Matches> getAllMatches(){
-        ArrayList<Matches> matches = new ArrayList();
+    public ArrayList<Match> getAllMatches(){
+        ArrayList<Match> matches = new ArrayList();
          try {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("select * from Match");
             while (rs.next()) {
-                Matches m = new Matches(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getTime(4),rs.getString(5),rs.getInt(6),rs.getDate(4));
+                Match m = new Match(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getTime(4),rs.getString(5),rs.getInt(6),rs.getDate(4));
                 matches.add(m);
             }
         } catch (SQLException e) {

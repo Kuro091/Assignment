@@ -62,6 +62,7 @@ public class UserAccount {
         
         if(roles!=null){
             for(String r: roles){
+                System.out.println("ROLE IS" + r);
                 this.roles.add(r);
             }
         }
