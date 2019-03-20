@@ -24,6 +24,10 @@
         <servlet-name>viewMatchesServlet</servlet-name>
         <servlet-class>servlets.viewMatchesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>registerServlet</servlet-name>
+        <servlet-class>servlets.registerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>homeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>viewMatchesServlet</servlet-name>
         <url-pattern>/viewMatches</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registerServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

@@ -21,5 +21,5 @@ public class DBContext {
     private final String dbName = "Assignment";
     private final String portNumber = "1433";
     private final String userID = "sa";
-    private final String password = "Pol1234%";
+    private final String password = "dathaynha1";
 }

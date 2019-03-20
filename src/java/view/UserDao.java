@@ -72,4 +72,53 @@ public class UserDao {
         }
         return u;
     }
+    
+     public void addUser(UserAccount user) {
+        try {
+            PreparedStatement preparedStatement = connection.
+                    prepareStatement("insert into Users (UserID, Username, Password, Credit, Phone, Address,Roles) values (?,?,?,?,?,?,?) ");
+            preparedStatement.setString(1, user.getUserID());
+            preparedStatement.setString(2, user.getUserName());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setInt(4, user.getCredit());
+            preparedStatement.setInt(5, user.getPhone());
+            preparedStatement.setString(6, user.getAddress());
+            preparedStatement.setString(7, SecurityConfig.ROLE_USER);
+            
+        
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+     public UserAccount getUserbyID(String id) {
+        try {
+            PreparedStatement preparedStatement = connection.
+                    prepareStatement("SELECT * FROM Users "
+                            + "WHERE UserID = ?");
+            preparedStatement.setString(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                UserAccount p = new UserAccount();
+                p.setUserID(rs.getString(1));
+                p.setUserName(rs.getString(2));
+                p.setPassword(rs.getString(3));               
+                p.setCredit(rs.getInt(4));
+                p.setPhone(rs.getInt(5));
+                return p;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+    
+    
+    
+    
 }

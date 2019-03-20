@@ -43,9 +43,12 @@
                             </button>
                         </div>
                         <div class="col-lg-3 offset-1">
-                            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#">
+                            <a href="register">
+                                <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#"  >
                                 Register
                             </button>
+                            </a>
+                            
                         </div>
                     </div>
                 </div>

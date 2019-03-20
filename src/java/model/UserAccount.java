@@ -15,6 +15,7 @@ import java.util.List;
  * @author Asus
  */
 public class UserAccount {
+    private String userID;
     private String userName;
     private String password;
     private int credit;
@@ -22,8 +23,18 @@ public class UserAccount {
 
     @Override
     public String toString() {
-        return "UserAccount{" + "userName=" + userName + ", password=" + password + ", credit=" + credit + ", phone=" + phone + ", address=" + address + ", roles=" + roles + '}';
+        return "UserAccount{" + "userID=" + userID + ", userName=" + userName + ", password=" + password + ", credit=" + credit + ", phone=" + phone + ", address=" + address + ", roles=" + roles + '}';
     }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+
     private String address;
 
     public int getCredit() {
