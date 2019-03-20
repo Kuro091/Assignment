@@ -11,13 +11,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.UserAccount;
 
 /**
  *
  * @author User
  */
-public class registerServlet extends BaseServlet {
+public class updatecreditServlet extends BaseServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,6 +27,9 @@ public class registerServlet extends BaseServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -54,57 +56,55 @@ public class registerServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String errorString = null;
-        UserAccount temp = null;
-        UserAccount u = null;
-        String id =request.getParameter("id");
-        String name = request.getParameter("username");
-        String password = request.getParameter("password");
-        String phoneStr = request.getParameter("phone");
-        int phone = 0;
-        int credit = 100;
-        
-        try {
-            phone = Integer.valueOf(phoneStr);
-        } catch (NumberFormatException e) {
-
-        }
-
-      
-
-        if (phone < 0 || !Integer.toString(phone).matches("\\d{10}")) {
-            errorString += "Chưa điền đủ đúng phone number format!!<br/>";
-        }
+             String errorString = null;
         
         
-
-         if(getUserDao().getUserbyID(id)!=null){
-                errorString += "ID already existed!<br/>";
+            
+           String id = request.getParameter("id");
+            String name = request.getParameter("name");
+            String password = request.getParameter("password");
+            int credit =0, newCredit=0;
+            
+            int phone=0;
+            try{
+                phone = Integer.parseInt(request.getParameter("phone"));
+            }catch(NumberFormatException e){
+                
             }
+            
+            
+            
+  
+            if(phone<0 || !Integer.toString(phone).matches("\\d{10}")   ){
+                errorString += "Chưa điền đủ đúng phone number format!!<br/>";
+            }
+            
+            
+            
+            
+            if(errorString != null && errorString.contains("null")){
+                errorString = errorString.substring(errorString.indexOf("null")+4, errorString.length());
+            }
+            //Nếu có lỗi thì báo, ko thì insert rồi redirect lại trang home
+            if(errorString!=null){
+                request.setAttribute("errorString", errorString);
+                Customer p = new Customer(id, name, email,  phone, Boolean.parseBoolean(status));
+                request.setAttribute("user", p);
+                RequestDispatcher dispatcher = request.getServletContext()
+                    .getRequestDispatcher("/WEB-INF/updatecredit.jsp");
+                dispatcher.forward(request, response);
+                return;
+            }else{
+                getUserDao().editCredit(user);
+                request.setAttribute("infoSuccess", "Đăng ký thành công!!");
+                response.sendRedirect(request.getContextPath() + "/index");
+            }
+      
         
-        if (errorString != null && errorString.contains("null")) {
-            errorString = errorString.substring(errorString.indexOf("null") + 4, errorString.length());
-        }
-
-        u = new UserAccount(name, password, "USER");
-        u.setCredit(credit);
-        u.setPhone(phone);
-        u.setUserID(id);
-
-        //Nếu có lỗi thì báo, ko thì insert rồi redirect lại trang home
-        if (errorString != null) {
-            request.setAttribute("errorString", errorString);
-
-            request.setAttribute("user", u);
-            forward(request, response, "WEB-INF/views/register.jsp");
-
-            return;
-        } else {
-            getUserDao().addUser(u);
-            request.setAttribute("infoSuccess", "Đăng ký thành công!!");
-            response.sendRedirect(request.getContextPath() + "/index");
-        }
-
+        
+        
+        
+        
     }
 
     /**

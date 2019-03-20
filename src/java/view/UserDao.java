@@ -118,7 +118,18 @@ public class UserDao {
         return null;
     }
     
-    
+     public void editCredit(UserAccount user) {
+        try {
+            PreparedStatement preparedStatement = connection.
+                    prepareStatement("update customer set credit where UserID= ?");
+            preparedStatement.setInt(1, user.getCredit());
+            
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     
 }

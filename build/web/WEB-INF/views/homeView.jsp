@@ -50,6 +50,14 @@
                             </a>
                             
                         </div>
+                         <div class="col-lg-3 offset-3">
+                            <a href="updatecredit">
+                                <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#"  >
+                                Nap tien
+                            </button>
+                            </a>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
