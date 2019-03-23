@@ -72,4 +72,20 @@ public class UserDao {
         }
         return u;
     }
+    
+    public void updateCredit(float credit,float totalcost,int userID){
+        try{
+            String sql = "update users set cost = ? where userID = ?";
+            PreparedStatement psmt = connection.prepareStatement(sql);
+            psmt.setFloat(1, credit - totalcost);
+            psmt.setInt(2, userID);
+            psmt.executeUpdate();
+        }catch(SQLException se){
+            
+        }
+    }
+    
+    public void getUserById(int userID){
+        
+    }
 }

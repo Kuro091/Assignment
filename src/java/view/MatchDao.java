@@ -8,6 +8,7 @@ package view;
 import model.Match;
 import context.DBContext;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,5 +44,17 @@ public class MatchDao {
             
         }
         return matches;
+    }
+    
+    public Match getMatchById(int matchId){
+        Match m = null;
+        try{
+            String sql = "select * from Match where matchID = ?";
+            PreparedStatement psmt = connection.prepareStatement(sql);
+            psmt.setInt(1, matchId);
+        }catch(SQLException se){
+            
+        }
+        return m;
     }
 }

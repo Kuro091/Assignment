@@ -5,22 +5,28 @@
  */
 package servlets;
 
-import context.DBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.Ticket;
+import model.Order;
 import model.Match;
+import view.TicketDao;
+import view.OrderDao;
 import view.MatchDao;
+
 
 /**
  *
- * @author Asus
+ * @author admin
  */
-public class viewMatchesServlet extends BaseServlet {
+@WebServlet(name = "buyTicket", urlPatterns = {"/buyTicket"})
+public class buyTicket extends BaseServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +45,10 @@ public class viewMatchesServlet extends BaseServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewMatchesServlet</title>");            
+            out.println("<title>Servlet buyTicket</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet viewMatchesServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet buyTicket at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,16 +66,8 @@ public class viewMatchesServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-            ArrayList<Match> matches = getMatchDao().getAllMatches();
-          
-            
-            request.setAttribute("matches", matches);
-            
-            forward(request, response, "/WEB-INF/views/viewMatches.jsp");
-            
-        }catch(Exception e){
-        }
+             doPost(request, response);
+
     }
 
     /**
@@ -83,7 +81,27 @@ public class viewMatchesServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String userIDstr = request.getParameter("userID");
+       String matchIDstr = request.getParameter("matchID");
+        System.out.println(userIDstr +" " +matchIDstr );
+        String amountStr = request.getParameter("amount");
+        int matchID = 0, amount = 0,userID = 0;
+        try {
+           // userID = Integer.parseInt(userIDstr);
+            matchID = Integer.parseInt(matchIDstr);
+            amount = Integer.parseInt(amountStr);
+        } catch (NumberFormatException e) {
+
+        }
+        ArrayList<Ticket> ticket = getTicketDao().getTicketByMatch(matchID);
+        System.out.println(matchID+" "+matchIDstr+" "+ticket.size());
+        float totalprice = amount * getTicketDao().getTicketPricebyMatch(matchID);
+        
+        Order order = new Order(1, userID, totalprice, amount, matchID);
+        getOrderDao().createOrder(order);
+        
+        request.setAttribute("order", order);
+          forward(request, response, "/WEB-INF/views/buyTicket.jsp");
     }
 
     /**
