@@ -62,7 +62,9 @@ public class viewMatchesServlet extends BaseServlet {
             throws ServletException, IOException {
         try{
             ArrayList<Match> matches = getMatchDao().getAllMatches();
-          
+           // java.util.Date date = new java.util.Date(matches.get(0).getDatetime().getTime());
+             //           SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+           // System.out.print(sdf.p);
             
             request.setAttribute("matches", matches);
             

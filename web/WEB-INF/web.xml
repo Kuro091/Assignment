@@ -4,10 +4,6 @@
         <servlet-name>homeServlet</servlet-name>
         <servlet-class>servlets.homeServlet</servlet-class>
     </servlet>
-      <servlet>
-        <servlet-name>buyTicket</servlet-name>
-        <servlet-class>servlets.buyTicket</servlet-class>
-    </servlet>
     <servlet>
         <servlet-name>loginServlet</servlet-name>
         <servlet-class>servlets.loginServlet</servlet-class>
@@ -31,10 +27,6 @@
     <servlet-mapping>
         <servlet-name>homeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
-    </servlet-mapping>
-      <servlet-mapping>
-        <servlet-name>buyTicket</servlet-name>
-        <url-pattern>/buyTicket</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
