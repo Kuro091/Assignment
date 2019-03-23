@@ -29,9 +29,7 @@ public class loginServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher //
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
-        dispatcher.forward(request, response);
+        forward(request, response, "/WEB-INF/views/loginView.jsp");
     }
 
     /**
@@ -51,9 +49,7 @@ public class loginServlet extends BaseServlet {
         
         if (userAccount == null){
             String errorMessage = "Invalid userName or Password";
- 
             request.setAttribute("errorMessage", errorMessage);
-            
             forward(request, response, "/WEB-INF/views/loginView.jsp");
             return;
         }
