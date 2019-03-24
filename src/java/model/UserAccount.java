@@ -15,10 +15,10 @@ import java.util.List;
  * @author Asus
  */
 public class UserAccount {
-    private String userID;
+    private int userID;
     private String userName;
     private String password;
-    private int credit;
+    private float credit;
     private int phone;
 
     @Override
@@ -26,22 +26,22 @@ public class UserAccount {
         return "UserAccount{" + "userID=" + userID + ", userName=" + userName + ", password=" + password + ", credit=" + credit + ", phone=" + phone + ", address=" + address + ", roles=" + roles + '}';
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
 
     private String address;
 
-    public int getCredit() {
+    public float getCredit() {
         return credit;
     }
 
-    public void setCredit(int credit) {
+    public void setCredit(float credit) {
         this.credit = credit;
     }
 
@@ -105,6 +105,10 @@ public class UserAccount {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public UserAccount(int userID) {
+        this.userID = userID;
     }
     
     

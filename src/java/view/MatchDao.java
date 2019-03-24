@@ -8,6 +8,7 @@ package view;
 import model.Match;
 import context.DBContext;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,5 +44,19 @@ public class MatchDao {
             
         }
         return matches;
+    }
+    
+    public void updateMatchTicket(int matchID,int amount){
+         try{
+            String sql = "update Match \n" +
+"set TotalTicket = ((select TotalTicket from Match where MatchID = ?) - ?)\n" +
+"where MatchID = ?";
+            PreparedStatement psmt = connection.prepareStatement(sql);
+            psmt.setInt(1, matchID);
+            psmt.setInt(2, amount);
+            psmt.setInt(3, matchID);
+        }catch(SQLException se){
+            se.printStackTrace();
+        }
     }
 }

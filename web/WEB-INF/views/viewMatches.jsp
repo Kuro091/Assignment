@@ -58,7 +58,7 @@
     ------------------------------------------->
             
             <c:forEach items="${matches}" var="m">
-                <form action="" method="post">
+                <form action="${pageContext.request.contextPath}/buyTicket" method="post">
                     <div class="box_team">
                         <div class="header_box_team">
                             <div class="row">
@@ -96,7 +96,8 @@
                             </div>
                         </div>
                         <div class="bottom_btn">
-                            <input type="hidden" name="matchId" value="${m.matchID}">
+                             <input type="visible" name="matchID" value="${m.matchID}">
+                            <input type="visible" name="username" value="${loginedUser.userName}">
                             <input type="submit" class="btn_buy_ticket" value="MUA VÉ" onclick="">
                             <div class="clearfix"></div>
                         </div>

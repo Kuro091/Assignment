@@ -56,51 +56,7 @@ public class updatecreditServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-             String errorString = null;
-        
-        
-            
-           String id = request.getParameter("id");
-            String name = request.getParameter("name");
-            String password = request.getParameter("password");
-            int credit =0, newCredit=0;
-            
-            int phone=0;
-            try{
-                phone = Integer.parseInt(request.getParameter("phone"));
-            }catch(NumberFormatException e){
-                
-            }
-            
-            
-            
-  
-            if(phone<0 || !Integer.toString(phone).matches("\\d{10}")   ){
-                errorString += "Chưa điền đủ đúng phone number format!!<br/>";
-            }
-            
-            
-            
-            
-            if(errorString != null && errorString.contains("null")){
-                errorString = errorString.substring(errorString.indexOf("null")+4, errorString.length());
-            }
-            //Nếu có lỗi thì báo, ko thì insert rồi redirect lại trang home
-            if(errorString!=null){
-                request.setAttribute("errorString", errorString);
-                Customer p = new Customer(id, name, email,  phone, Boolean.parseBoolean(status));
-                request.setAttribute("user", p);
-                RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/updatecredit.jsp");
-                dispatcher.forward(request, response);
-                return;
-            }else{
-                getUserDao().editCredit(user);
-                request.setAttribute("infoSuccess", "Đăng ký thành công!!");
-                response.sendRedirect(request.getContextPath() + "/index");
-            }
-      
-        
+          
         
         
         

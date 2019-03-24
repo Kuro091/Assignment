@@ -77,10 +77,10 @@ public class UserDao {
         try {
             PreparedStatement preparedStatement = connection.
                     prepareStatement("insert into Users (UserID, Username, Password, Credit, Phone, Address,Roles) values (?,?,?,?,?,?,?) ");
-            preparedStatement.setString(1, user.getUserID());
+            preparedStatement.setInt(1, user.getUserID());
             preparedStatement.setString(2, user.getUserName());
             preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setInt(4, user.getCredit());
+            preparedStatement.setFloat(4, user.getCredit());
             preparedStatement.setInt(5, user.getPhone());
             preparedStatement.setString(6, user.getAddress());
             preparedStatement.setString(7, SecurityConfig.ROLE_USER);
@@ -104,7 +104,7 @@ public class UserDao {
 
             if (rs.next()) {
                 UserAccount p = new UserAccount();
-                p.setUserID(rs.getString(1));
+                p.setUserID(rs.getInt(1));
                 p.setUserName(rs.getString(2));
                 p.setPassword(rs.getString(3));               
                 p.setCredit(rs.getInt(4));
@@ -122,13 +122,38 @@ public class UserDao {
         try {
             PreparedStatement preparedStatement = connection.
                     prepareStatement("update customer set credit where UserID= ?");
-            preparedStatement.setInt(1, user.getCredit());
+            preparedStatement.setInt(1, user.getUserID());
             
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+     
+     public UserAccount getUserbyName(String name) {
+        try {
+            PreparedStatement preparedStatement = connection.
+                    prepareStatement("SELECT * FROM Users "
+                            + "WHERE Username = ?");
+            preparedStatement.setString(1, name);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                UserAccount p = new UserAccount();
+                p.setUserID(rs.getInt(1));
+                p.setUserName(rs.getString(2));
+                p.setPassword(rs.getString(3));               
+                p.setCredit(rs.getInt(4));
+                p.setPhone(rs.getInt(5));
+                return p;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
     
     
