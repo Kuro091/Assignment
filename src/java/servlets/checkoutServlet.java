@@ -12,13 +12,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.*;
+import model.Receipt;
+import model.Ticket;
+import model.UserAccount;
 
 /**
  *
  * @author admin
  */
-public class buyTicket extends BaseServlet {
+public class checkoutServlet extends BaseServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +39,10 @@ public class buyTicket extends BaseServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet buyTicket</title>");
+            out.println("<title>Servlet checkoutServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet buyTicket at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet checkoutServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,9 +60,7 @@ public class buyTicket extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         doPost(request, response);
-
     }
 
     /**
@@ -74,25 +74,70 @@ public class buyTicket extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
+           String username = request.getParameter("username");
         String matchIDStr = request.getParameter("matchID");
-        UserAccount user = getUserDao().getUserbyName(username);
-        int matchID = 0;
-
-        try {
+        String amountStr = request.getParameter("amount");
+        int matchID = 0,amount = 0;
+        String message = "";
+        
+        try{
             matchID = Integer.parseInt(matchIDStr);
-
-        } catch (NumberFormatException e) {
+            amount = Integer.parseInt(amountStr);
+        }catch(NumberFormatException e){
             e.printStackTrace();
         }
-        Match match = getMatchDao().getMatchByID(matchID);
-        String matchname = match.getHost() + " VS " + match.getGuest();
-        request.setAttribute("matchname", matchname);
-        request.setAttribute("matchID", matchID);
-        request.setAttribute("username", username);
+        
+        UserAccount user = getUserDao().getUserbyName(username);
+        float credit = user.getCredit(); // kiểm tra tiền của user
+        
+        // kiểm tra số vé
+        int number_of_ticket_availble = 0;
+        ArrayList<Ticket> ticket = getTicketDao().getTicketByMatchID(matchID); 
+        for(Ticket t : ticket){
+            if(t.getIsAvailable() == 1){
+               number_of_ticket_availble++;
+            }
+            
+        }
+        
+        //
+        float totalprice = 0;
+        Receipt r = new Receipt(user.getUserID(),0, 0);
+        if(ticket != null && number_of_ticket_availble >= amount){ // nếu còn vé
+            float price = ticket.get(0).getCost();
+            totalprice = amount * price;
+            
+            if(credit > totalprice){ // nếu tài khoản đủ tiền
+                user.setCredit(credit - totalprice);
+                getUserDao().editCredit(user);
+                getTicketDao().updateTicket(matchID, amount);
+                getMatchDao().updateMatchTicket(matchID, amount);
+                
+                r = new Receipt(user.getUserID(), totalprice, amount);
+                getReceiptDao().createReceipt(r);
+                
+                message += "Thanh toán thành công";
+                
+               
+            }else{  // nếu tài khoản không đủ tiền
+                // viết chức năng nạp tiền ở đây
+                message += "Không đủ tiền trong tài khoản. Xin hãy nạp tiền";
+                
+            }
+            
+        }else{
+            // hết vé hoặc số vé mua lớn hơn số vé còn lại
+            message = " Không đủ vé để mua";
+            amount = 0;
+            
+        }
+        
         request.setAttribute("user", user);
-        forward(request, response, "/WEB-INF/views/buyTicket.jsp");
-
+        request.setAttribute("credit_left", user.getCredit());
+        request.setAttribute("totalprice", totalprice);
+        request.setAttribute("totalticket", amount);
+        request.setAttribute("message", message);
+         forward(request, response, "/WEB-INF/views/checkout.jsp");
     }
 
     /**

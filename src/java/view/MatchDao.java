@@ -46,6 +46,23 @@ public class MatchDao {
         return matches;
     }
     
+    public Match getMatchByID(int matchID){
+        Match match = null;
+        
+        try{
+            String sql = "Select * from Match where MatchID = ?";
+            PreparedStatement psmt = connection.prepareStatement(sql);
+            psmt.setInt(1, matchID);
+            ResultSet rs = psmt.executeQuery();
+            while(rs.next()){
+                match = new Match(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5), rs.getInt(6), rs.getDate(4));
+            }
+        }catch(SQLException e){
+            
+        }
+        return match;
+    }
+    
     public void updateMatchTicket(int matchID,int amount){
          try{
             String sql = "update Match \n" +
@@ -55,6 +72,7 @@ public class MatchDao {
             psmt.setInt(1, matchID);
             psmt.setInt(2, amount);
             psmt.setInt(3, matchID);
+            psmt.executeUpdate();
         }catch(SQLException se){
             se.printStackTrace();
         }

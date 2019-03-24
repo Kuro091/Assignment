@@ -36,6 +36,10 @@
         <servlet-name>buyTicket</servlet-name>
         <servlet-class>servlets.buyTicket</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>checkoutServlet</servlet-name>
+        <servlet-class>servlets.checkoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>homeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>buyTicket</servlet-name>
         <url-pattern>/buyTicket</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>checkoutServlet</servlet-name>
+        <url-pattern>/checkout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

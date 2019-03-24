@@ -121,8 +121,9 @@ public class UserDao {
      public void editCredit(UserAccount user) {
         try {
             PreparedStatement preparedStatement = connection.
-                    prepareStatement("update customer set credit where UserID= ?");
-            preparedStatement.setInt(1, user.getUserID());
+                    prepareStatement("update Users set credit = ? where UserID= ?");
+            preparedStatement.setFloat(1, user.getCredit());
+            preparedStatement.setInt(2, user.getUserID());
             
             preparedStatement.executeUpdate();
 

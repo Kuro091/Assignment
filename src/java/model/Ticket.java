@@ -53,6 +53,13 @@ public class Ticket {
     public void setIsAvailable(int isAvailable) {
         this.isAvailable = isAvailable;
     }
+
+    @Override
+    public String toString() {
+        return "Ticket{" + "ticketID=" + ticketID + ", cost=" + cost + ", matchID=" + matchID + ", isAvailable=" + isAvailable + '}';
+    }
+    
+    
     
     
 }
