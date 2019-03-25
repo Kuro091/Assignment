@@ -14,25 +14,25 @@ public class Receipt {
     private int userID;
     private float totalprice;
     private int totalticket;
-    
+    private boolean status;
 
-    public Receipt(int receiptID, int userID, float totalprice, int totalticket) {
+    public Receipt(int userID, float totalprice, int totalticket, boolean status) {
+        this.userID = userID;
+        this.totalprice = totalprice;
+        this.totalticket = totalticket;
+        this.status = status;
+    }
+
+    public Receipt(int receiptID, int userID, float totalprice, int totalticket, boolean status) {
         this.receiptID = receiptID;
         this.userID = userID;
         this.totalprice = totalprice;
         this.totalticket = totalticket;
-      
+        this.status = status;
     }
+    
+    
 
-    public Receipt(int userID, float totalprice, int totalticket) {
-        this.userID = userID;
-        this.totalprice = totalprice;
-        this.totalticket = totalticket;
-    }
-    
-    
-    
-    
     public int getReceiptID() {
         return receiptID;
     }
@@ -65,8 +65,14 @@ public class Receipt {
         this.totalticket = totalticket;
     }
 
-  
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
     
-    
-    
+
+   
 }

@@ -15,15 +15,17 @@
     </head>
     <body>
 
-        <form method="post" action="checkout">
-            <p>Trận đấu:${requestScope.matchname}</p>
-            <input type="hidden" name="matchID" value="${matchID}">
-            <input type="hidden" name="username" value="${username}">
+     
+        <form method="post" action="orderstatus">
+            <input type="hidden" name="matchID" value="${match.getMatchID()}">
+            <input type="hidden" name="username" value="${user.getUserName()}">
+            <p>Trận đấu:${match.getHost()}  VS  ${match.getGuest()}</p>
             <p>Người mua:${user.getUserName()}</p>
-            <p>Tổng tiền trong tài khoản:${user.getCredit()}</p></br>
-            Số lượng vé:<input type="number"  name="amount" ></br>
-            <input type="submit" name = "checkout" value="Thanh toán">
+            <p>Tổng tiền trong tài khoản:${user.getCredit()}</p>
+            <p>Số lượng vé:${ticket}</p>
+            Quanity<input type="number"  name="amount" min="1" max="4"></br>
+            <input type="submit" name = "checkout" value="Xác nhận">
         </form>
-
+            
     </body>
 </html>
