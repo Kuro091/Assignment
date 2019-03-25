@@ -95,7 +95,7 @@ public class buyTicket extends BaseServlet {
             
         }
         Match match = getMatchDao().getMatchByID(matchID);
-        String matchname = match.getHost() + " VS " + match.getGuest();
+        
         request.setAttribute("match", match);
         request.setAttribute("user", user);
         request.setAttribute("ticket", number_of_ticket_availble);
