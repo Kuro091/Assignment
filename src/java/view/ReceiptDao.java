@@ -49,9 +49,10 @@ public class ReceiptDao {
         try{
             String sql = "select * from Receipt where ReceiptID = ?";
             PreparedStatement psmt = connection.prepareStatement(sql);
+            psmt.setInt(1, id);
             ResultSet rs = psmt.executeQuery();
             while(rs.next()){
-                r = new Receipt(id, rs.getInt(2), rs.getFloat(3), rs.getInt(4), rs.getBoolean(5));
+                r = new Receipt(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getInt(4), rs.getBoolean(5));
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -82,6 +83,23 @@ public class ReceiptDao {
         }catch(SQLException e){
             e.printStackTrace();
         }
+    }
+    
+    public Receipt getLastReceiptByUserid(int id){
+        Receipt r = null;
+        try{
+            String sql = "select * from Receipt where UserID = ? and ReceiptID = (select max(ReceiptID) from Receipt where UserID = ?)";
+            PreparedStatement psmt = connection.prepareStatement(sql);
+            psmt.setInt(1, id);
+            psmt.setInt(2, id);
+            ResultSet rs = psmt.executeQuery();
+            while(rs.next()){
+                r = new Receipt(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getInt(4), rs.getBoolean(5));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return r;
     }
     
    // public ArrayList<Receipt> getReceipt(){

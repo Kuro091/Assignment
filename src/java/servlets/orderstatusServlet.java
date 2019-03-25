@@ -7,17 +7,22 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Receipt;
+import model.Ticket;
+import model.UserAccount;
 
 /**
  *
  * @author admin
  */
-public class cancelorderServlet extends BaseServlet {
+@WebServlet(name = "orderstatusServlet", urlPatterns = {"/orderstatus"})
+public class orderstatusServlet extends BaseServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +41,10 @@ public class cancelorderServlet extends BaseServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet cancelorderServlet</title>");            
+            out.println("<title>Servlet orderstatusServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet cancelorderServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet orderstatusServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,27 +76,65 @@ public class cancelorderServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idStr = request.getParameter("receiptid");
-        String matchidStr = request.getParameter("matchid");
-        int id = 0,matchid = 0;
-        try{
-            id = Integer.parseInt(idStr);
-            matchid = Integer.parseInt(matchidStr);
-        }catch(NumberFormatException e){
-            
-        }
-        System.out.print(idStr);
+         String username = request.getParameter("username");
+        String matchIDStr = request.getParameter("matchID");
+        String amountStr = request.getParameter("amount");
+        int matchID = 0, amount = 0;
         String message = "";
-        Receipt r = getReceiptDao().getReceiptById(id);
-        if(r.isStatus() == true){
-            message += "Đã thanh toán, không hoàn tiền";
-        }else{
-            getReceiptDao().deleteReceiptById(id);
-            getTicketDao().reupdateTicket(matchid, r.getTotalticket());
-            message += "Hủy đơn thành công";
+        String status="";
+        try {
+            matchID = Integer.parseInt(matchIDStr);
+            amount = Integer.parseInt(amountStr);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
+
+        UserAccount user = getUserDao().getUserbyName(username);
+        float credit = user.getCredit(); // kiểm tra tiền của user
+
+        // kiểm tra số vé
+        int number_of_ticket_availble = 0;
+        ArrayList<Ticket> ticket = getTicketDao().getTicketByMatchID(matchID);
+        for (Ticket t : ticket) {
+            if (t.getIsAvailable() == 1) {
+                number_of_ticket_availble++;
+            }
+
+        }
+
+        //
+        float totalprice = 0;
+        Receipt r = new Receipt(user.getUserID(), totalprice, 0, false);
+        if (ticket != null && number_of_ticket_availble >= amount) { // nếu còn vé
+            float price = ticket.get(0).getCost();
+            totalprice = amount * price;
+            r.setTotalprice(totalprice);
+            r.setTotalticket(amount);
+
+          //  user.setCredit(credit - totalprice);
+            //getUserDao().editCredit(user);
+            getTicketDao().updateTicket(matchID, amount);
+            getMatchDao().updateMatchTicket(matchID, amount);
+            
+            getReceiptDao().createReceipt(r);
+
+            message += "Thanh toán thành công";
+
+        } else {
+            // hết vé hoặc số vé mua lớn hơn số vé còn lại
+            message = " Không đủ vé để mua";
+            amount = 0;
+
+        }
+        
+        Receipt receipt = getReceiptDao().getLastReceiptByUserid(user.getUserID());
+        
+        
+        request.setAttribute("user", user);
+        request.setAttribute("receipt", receipt);
+        request.setAttribute("matchid", matchIDStr);
         request.setAttribute("message", message);
-        forward(request, response, "/WEB-INF/views/cancelorder.jsp");
+        forward(request, response, "/WEB-INF/views/orderstatus.jsp");
     }
 
     /**

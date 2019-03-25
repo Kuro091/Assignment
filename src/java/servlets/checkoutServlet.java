@@ -34,6 +34,7 @@ public class checkoutServlet extends BaseServlet {
         String totalPriceStr = request.getParameter("totalprice");
         String username = request.getParameter("username");
         String receiptidStr = request.getParameter("receiptid");
+        String matchid = request.getParameter("matchid");
         String message = "";
         int receiptid = 0;
         float totalprice = 0;
@@ -59,8 +60,11 @@ public class checkoutServlet extends BaseServlet {
         }else{
             message += "Không đủ tiền, bạn muốn nạp thêm tiền hay hủy đơn?";
         }
-        
-        request.setAttribute(message, "message");
+        System.out.print(message);
+        request.setAttribute("message", message);
+        request.setAttribute("receipt", r);
+        request.setAttribute("matchid", matchid);
+        request.setAttribute("user", user);
         forward(request, response, "/WEB-INF/views/checkout.jsp");
         
         

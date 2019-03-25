@@ -12,12 +12,14 @@
         <title>Nạp tiền</title>
     </head>
     <body>
-        <form method="post" action="updatecredit">
-            <input type="hidden" name="username" value="${user.getUserName()}">
-            <input type="hidden" name="credit" value="${user.getCredit()}">
-            <p>Tiền trong tài khoản:${user.getCredit()}</p>
+        <form method="post" action="${pageContext.request.contextPath}/updatecredit">
+            <input type="visible" name="username" value="${user.userName}">
+            <input type="visible" name="credit" value="${user.credit}">
+            <p>Tiền trong tài khoản:${user.credit}</p>
             Số tiền muốn nạp:<input name = "money" type="number"></br>
             <input type="submit" value = "Nạp tiền">
         </form>
+        
+            
     </body>
 </html>

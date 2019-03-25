@@ -9,14 +9,13 @@
     </head>
     <body>
             
-            <h1>${requestScope.message}</h1>
-            <form method="post" action="updatecredit">
-                <input value="${user.getUserName()}" name="username" type="hidden">
-                <input type="submit" value="Nạp tiền">
-            </form>
+        <h1>${message}</h1>
+           
+                <a href="updatecredit?id=${user.userID}"  type="button">Nạp tiền</a>
             
-                <form method="post" action="">
+                <form method="post" action="cancelorder">
                     <input type ="hidden" name="receiptid" value="${receipt.getReceiptID()}" >
+                    <input type ="hidden" name="matchid" value="${matchid}" >
                     <input type="submit" value="Hủy">
                 </form>
     </body>

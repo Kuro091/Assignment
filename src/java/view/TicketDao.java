@@ -46,6 +46,23 @@ public class TicketDao {
         }
     }
     
+       public void reupdateTicket(int matchID,int amount){
+        try{
+            String sql = "update Ticket\n" +
+"set isAvailable = 1\n" +
+"where TicketID in(select top(?) TicketID \n" +
+"					from Ticket\n" +
+"					where MatchID = ? and isAvailable = 0\n" +
+"					order by TicketID desc)";
+            PreparedStatement psmt = connection.prepareStatement(sql);
+            psmt.setInt(1, amount);
+            psmt.setInt(2, matchID);
+            psmt.executeUpdate();
+        }catch(SQLException se){
+            se.printStackTrace();
+        }
+    }
+    
     public ArrayList<Ticket> getTicketByMatchID(int matchID){
         ArrayList<Ticket> ticket = new ArrayList<>();
          try{
