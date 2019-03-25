@@ -72,6 +72,11 @@ public class Receipt {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Receipt{" + "receiptID=" + receiptID + ", userID=" + userID + ", totalprice=" + totalprice + ", totalticket=" + totalticket + ", status=" + status + '}';
+    }
     
 
    

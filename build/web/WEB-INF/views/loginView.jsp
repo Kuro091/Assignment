@@ -60,14 +60,15 @@
                 <div id="square6" class="square square-6"></div>
             </div>
         </div>
-    </div>
-    <!-- Core -->
-    <script src="assets/js/core/jquery.min.js"></script>
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/core/bootstrap.min.js"></script>
 
-    <!-- Theme JS -->
+        <jsp:include page="_footer.jsp"></jsp:include>
+        <!-- Core -->
+        <script src="assets/js/core/jquery.min.js"></script>
+        <script src="assets/js/core/popper.min.js"></script>
+        <script src="assets/js/core/bootstrap.min.js"></script>
 
-    <script src="assets/js/blk-design-system.min.js"></script>
-</body>
+        <!-- Theme JS -->
+
+        <script src="assets/js/blk-design-system.min.js"></script>
+    </body>
 </html>

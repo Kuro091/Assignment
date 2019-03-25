@@ -56,9 +56,9 @@
     </table>
 
     ------------------------------------------->
-            
+
             <c:forEach items="${matches}" var="m">
-                <form action="${pageContext.request.contextPath}/buyTicket" method="post">
+                <form action="${pageContext.request.contextPath}/buyTicket">
                     <div class="box_team">
                         <div class="header_box_team">
                             <div class="row">
@@ -82,9 +82,7 @@
                                                         src="${m.getFlag(m.getHost())}"
                                                         height="60" alt="">
                                                     <p>${m.getHost()}</p></td>
-
                                                 <td class="col-md-2" style="color:white"><h2>vs</h2></td>
-
                                                 <td class="col-md-5"><img
                                                         src="${m.getFlag(m.getGuest())}"
                                                         height="60" alt="">
@@ -96,8 +94,8 @@
                             </div>
                         </div>
                         <div class="bottom_btn">
-                             <input type="visible" name="matchID" value="${m.matchID}">
-                            <input type="visible" name="username" value="${loginedUser.userName}">
+                            <input type="hidden" name="matchID" value="${m.matchID}">
+                            <input type="hidden" name="username" value="${loginedUser.userName}">
                             <input type="submit" class="btn_buy_ticket" value="MUA VÉ" onclick="">
                             <div class="clearfix"></div>
                         </div>
@@ -105,9 +103,7 @@
                     </div>
                 </form>
             </c:forEach>
-            
-            
-            
         </div>
+        <jsp:include page="_footer.jsp"></jsp:include>
     </body>
 </html>
