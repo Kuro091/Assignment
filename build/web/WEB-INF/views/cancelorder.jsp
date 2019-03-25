@@ -12,6 +12,7 @@
         <title>Hủy đơn hàng</title>
     </head>
     <body>
-        <h1>Hủy đơn thành công</h1>
+        <h1>${message}</h1>
+        <a href="index">Back to Home Page</a>
     </body>
 </html>

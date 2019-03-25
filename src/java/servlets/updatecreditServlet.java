@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package servlets;
-
+import model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -56,7 +56,8 @@ public class updatecreditServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
+ 
+        forward(request, response, "/WEB-INF/updatecredit.jsp");
         
     }
 
@@ -71,8 +72,27 @@ public class updatecreditServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
+        
+       String username = request.getParameter("username");
         String creditStr = request.getParameter("credit");
+        String moneyStr = request.getParameter("money");
+        
+        System.out.println(username + " "+creditStr+" "+moneyStr+" ");
+        float credit = 0,money = 0;
+        try{
+            credit = Float.parseFloat(creditStr);
+            money = Float.parseFloat(moneyStr);
+        }catch(NumberFormatException e){
+            e.printStackTrace();
+        }
+        UserAccount user = getUserDao().getUserbyName(username);
+        user.setCredit(credit + money);
+        getUserDao().editCredit(user);
+        
+        request.setAttribute("user", user);
+        
+         forward(request, response, "/WEB-INF/updatecredit.jsp");
+       
     }
 
     /**

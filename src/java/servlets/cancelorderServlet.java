@@ -11,12 +11,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Receipt;
 
 /**
  *
  * @author admin
  */
-public class cancelorderServlet extends HttpServlet {
+public class cancelorderServlet extends BaseServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,7 +57,7 @@ public class cancelorderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -70,7 +71,27 @@ public class cancelorderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String idStr = request.getParameter("receiptid");
+        String matchidStr = request.getParameter("matchid");
+        int id = 0,matchid = 0;
+        try{
+            id = Integer.parseInt(idStr);
+            matchid = Integer.parseInt(matchidStr);
+        }catch(NumberFormatException e){
+            
+        }
+        System.out.print(idStr);
+        String message = "";
+        Receipt r = getReceiptDao().getReceiptById(id);
+        if(r.isStatus() == true){
+            message += "Đã thanh toán, không hoàn tiền";
+        }else{
+            getReceiptDao().deleteReceiptById(id);
+            getTicketDao().reupdateTicket(matchid, r.getTotalticket());
+            message += "Hủy đơn thành công";
+        }
+        request.setAttribute("message", message);
+        forward(request, response, "/WEB-INF/views/cancelorder.jsp");
     }
 
     /**

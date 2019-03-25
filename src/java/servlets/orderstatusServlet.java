@@ -127,10 +127,12 @@ public class orderstatusServlet extends BaseServlet {
 
         }
         
+        Receipt receipt = getReceiptDao().getLastReceiptByUserid(user.getUserID());
+        
         
         request.setAttribute("user", user);
-        request.setAttribute("receipt", r);
-        
+        request.setAttribute("receipt", receipt);
+        request.setAttribute("matchid", matchIDStr);
         request.setAttribute("message", message);
         forward(request, response, "/WEB-INF/views/orderstatus.jsp");
     }
