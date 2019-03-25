@@ -19,6 +19,7 @@ public class Match {
     private String stadium;
     private int totalTicket;
     private Date date;
+    private float price;
 
     public Match(int matchID, String host, String guest, Date time, String stadium, int totalTicket,Date date) {
         this.matchID = matchID;
@@ -29,6 +30,8 @@ public class Match {
         this.totalTicket = totalTicket;
         this.date = date;
     }
+    
+    
     
     
 

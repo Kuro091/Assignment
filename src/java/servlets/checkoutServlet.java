@@ -7,16 +7,20 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Receipt;
+import model.Ticket;
+import model.UserAccount;
 
 /**
  *
  * @author admin
  */
-public class updatecreditServlet extends BaseServlet {
+public class checkoutServlet extends BaseServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +39,10 @@ public class updatecreditServlet extends BaseServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet updatecreditServlet</title>");            
+            out.println("<title>Servlet checkoutServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet updatecreditServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet checkoutServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,7 +61,6 @@ public class updatecreditServlet extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
-        
     }
 
     /**
@@ -71,58 +74,40 @@ public class updatecreditServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-             String errorString = null;
-        
-        
-            
-           String id = request.getParameter("id");
-            String name = request.getParameter("name");
-            String password = request.getParameter("password");
-            int credit =0, newCredit=0;
-            
-            int phone=0;
-            try{
-                phone = Integer.parseInt(request.getParameter("phone"));
-            }catch(NumberFormatException e){
-                
-            }
-            
-            
-            
-  
-            if(phone<0 || !Integer.toString(phone).matches("\\d{10}")   ){
-                errorString += "Chưa điền đủ đúng phone number format!!<br/>";
-            }
-            
-            
-            
-            
-            if(errorString != null && errorString.contains("null")){
-                errorString = errorString.substring(errorString.indexOf("null")+4, errorString.length());
-            }
-            //Nếu có lỗi thì báo, ko thì insert rồi redirect lại trang home
-            if(errorString!=null){
-                request.setAttribute("errorString", errorString);
-                Customer p = new Customer(id, name, email,  phone, Boolean.parseBoolean(status));
-                request.setAttribute("user", p);
-                RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/updatecredit.jsp");
-                dispatcher.forward(request, response);
-                return;
-            }else{
-                getUserDao().editCredit(p);
-                request.setAttribute("infoSuccess", "Đăng ký thành công!!");
-                response.sendRedirect(request.getContextPath() + "/index");
-            }
-      
-        
-        
-        
-        
+        String totalPriceStr = request.getParameter("totalprice");
         String username = request.getParameter("username");
-        String creditStr = request.getParameter("credit");
+        String receiptidStr = request.getParameter("receiptid");
+        String message = "";
+        int receiptid = 0;
+        float totalprice = 0;
+        
+        try{
+            receiptid = Integer.parseInt(receiptidStr);
+            totalprice = Float.parseFloat(totalPriceStr);
+        }catch(NumberFormatException e){
+            e.printStackTrace();
+        }
+        
+        UserAccount user = getUserDao().getUserbyName(username);
+        float credit = user.getCredit();
+        Receipt r = getReceiptDao().getReceiptById(receiptid);
+        
+        if(credit >= totalprice){
+            r.setStatus(true);
+            getReceiptDao().updateReceiptStatus(receiptid);
+            user.setCredit(credit - totalprice);
+            getUserDao().editCredit(user);
+            
+            message += "Mua vé thành công";
+        }else{
+            message += "Không đủ tiền, bạn muốn nạp thêm tiền hay hủy đơn?";
+        }
+        
+        request.setAttribute(message, "message");
+        forward(request, response, "/WEB-INF/views/checkout.jsp");
+        
+        
     }
-
     /**
      * Returns a short description of the servlet.
      *

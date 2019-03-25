@@ -29,8 +29,20 @@
         <servlet-class>servlets.registerServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>buyTicket</servlet-name>
+        <servlet-class>servlets.buyTicket</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>checkoutServlet</servlet-name>
+        <servlet-class>servlets.checkoutServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>updatecreditServlet</servlet-name>
         <servlet-class>servlets.updatecreditServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>cancelorderServlet</servlet-name>
+        <servlet-class>servlets.cancelorderServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>homeServlet</servlet-name>
@@ -61,8 +73,20 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>buyTicket</servlet-name>
+        <url-pattern>/buyTicket</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>checkoutServlet</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>updatecreditServlet</servlet-name>
         <url-pattern>/updatecredit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cancelorderServlet</servlet-name>
+        <url-pattern>/cancelorder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

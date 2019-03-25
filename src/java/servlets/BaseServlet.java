@@ -14,8 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import view.MatchDao;
-import view.UserDao;
+import view.*;
+import model.*;
 
 /**
  *
@@ -26,9 +26,15 @@ public class BaseServlet extends HttpServlet {
     protected DBContext dbContext;
     protected UserDao userDao;
     protected MatchDao matchDao;
+    protected ReceiptDao receiptdao;
+    protected TicketDao ticketdao;
     
     public DBContext getDbContext() {
         return dbContext;
+    }
+    
+    public ReceiptDao getReceiptDao(){
+        return receiptdao;
     }
 
     public UserDao getUserDao(){
@@ -39,13 +45,17 @@ public class BaseServlet extends HttpServlet {
         return matchDao;
     }
     
+    public TicketDao getTicketDao(){
+        return ticketdao;
+    }
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
         dbContext = new DBContext();
         userDao = new UserDao(dbContext);
         matchDao = new MatchDao(dbContext);
-        
+        receiptdao = new ReceiptDao(dbContext);
+        ticketdao = new TicketDao(dbContext);
     }
     
     protected void forward(HttpServletRequest request, HttpServletResponse response, String path) throws ServletException, IOException
