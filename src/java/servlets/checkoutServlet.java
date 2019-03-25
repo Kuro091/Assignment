@@ -74,12 +74,12 @@ public class checkoutServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           String username = request.getParameter("username");
+        String username = request.getParameter("username");
         String matchIDStr = request.getParameter("matchID");
         String amountStr = request.getParameter("amount");
         int matchID = 0,amount = 0;
         String message = "";
-        
+        System.out.print(username +" " + matchIDStr +" " + amountStr);
         try{
             matchID = Integer.parseInt(matchIDStr);
             amount = Integer.parseInt(amountStr);
