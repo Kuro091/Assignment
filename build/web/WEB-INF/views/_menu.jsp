@@ -31,10 +31,12 @@
                         </c:if>
 
 
-
                         <c:if test="${not empty loginedUser}">
                             <li class="nav-item">
                                 <a class="nav-link disabled" href="${pageContext.request.contextPath}/viewMatches">View available matches</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="${pageContext.request.contextPath}/updatecredit">Add credit</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link disabled" href="${pageContext.request.contextPath}/logout">Logout</a>

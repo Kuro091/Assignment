@@ -25,19 +25,19 @@
     </head>
     <body class ="profile-page">
         <jsp:include page="_menu.jsp"></jsp:include>
-        <br/>
-        <div class="page-header">
-            <img src="assets/img/dots.png" class="dots">
-            <img src="assets/img/path4.png" class="path">
-            <div class="container align-items-center">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <h1 class="profile-title text-left">${loginedUser.userName}'s mainpage</h1>
+            <br/>
+            <div class="page-header">
+                <img src="assets/img/dots.png" class="dots">
+                <img src="assets/img/path4.png" class="path">
+                <div class="container align-items-center">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <h1 class="profile-title text-left">${loginedUser.userName}'s mainpage</h1>
                         <h5 class="text-on-back">Mainpage</h5>
                         <p class="profile-description">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br/>
                             aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br/>
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br/></p>
-                        
+                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br/></p>
+
                     </div>
                     <div class="col-lg-4 col-md-6 ml-auto mr-auto">
                         <div class="card card-coin card-plain">
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-
+        <jsp:include page="_footer.jsp"></jsp:include>
 
 
         <!-- Core -->

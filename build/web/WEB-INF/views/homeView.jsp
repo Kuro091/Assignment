@@ -24,7 +24,7 @@
     <body class="index-page">
 
         <jsp:include page="_menu.jsp"></jsp:include>
-        <div class="squares square1"></div>
+            <div class="squares square1"></div>
             <div class="squares square3"></div>
             <div class="squares square4"></div>
             <div class="squares square5"></div>
@@ -32,31 +32,22 @@
             <div class="squares square7 offset-7"></div>
         <jsp:include page="_header.jsp"></jsp:include> 
 
-            
-            <div class ="section">
+
+            <div class ="">
                 <img src="assets/img/path1.png" class="path">
                 <div class="container">
                     <div class="section row">
-                        <div class="col-lg-3 offset-3">
-                            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal2">
+                        <div class="col-xs-3 offset-3">
+                            <button class="btn btn-lg btn-success btn-huge" data-toggle="modal" data-target="#myModal2">
                                 Login
                             </button>
                         </div>
-                        <div class="col-lg-3 offset-1">
+                        <div class="col-xs-3 offset-1">
                             <a href="register">
-                                <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#"  >
-                                Register
-                            </button>
+                                <button class="btn btn-lg btn-success btn-huge" data-toggle="modal" data-target="#"  >
+                                    Register
+                                </button>
                             </a>
-                            
-                        </div>
-                         <div class="col-lg-3 offset-3">
-                            <a href="updatecredit">
-                                <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#"  >
-                                Nap tien
-                            </button>
-                            </a>
-                            
                         </div>
                     </div>
                 </div>
@@ -110,25 +101,25 @@
 
 
                             <div class="text-center">
-                                <input type="submit" value ="Submit" class="btn btn-primary my-4">Sign in</button>
+                                <input type="submit" value ="Sign in" class="btn btn-primary my-4"></button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <jsp:include page="_footer.jsp"></jsp:include>
 
 
-    <!--  End Modal -->
-    <!-- Core -->
-    <script src="assets/js/core/jquery.min.js"></script>
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/core/bootstrap.min.js"></script>
+        <!--  End Modal -->
+        <!-- Core -->
+        <script src="assets/js/core/jquery.min.js"></script>
+        <script src="assets/js/core/popper.min.js"></script>
+        <script src="assets/js/core/bootstrap.min.js"></script>
 
-    <!-- Theme JS -->
+        <!-- Theme JS -->
 
-    <script src="assets/js/blk-design-system.min.js"></script>
-</body>
+        <script src="assets/js/blk-design-system.min.js"></script>
+    </body>
 
 </html>
