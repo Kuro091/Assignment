@@ -74,72 +74,40 @@ public class checkoutServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           String username = request.getParameter("username");
-        String matchIDStr = request.getParameter("matchID");
-        String amountStr = request.getParameter("amount");
-        int matchID = 0,amount = 0;
+        String totalPriceStr = request.getParameter("totalprice");
+        String username = request.getParameter("username");
+        String receiptidStr = request.getParameter("receiptid");
         String message = "";
+        int receiptid = 0;
+        float totalprice = 0;
         
         try{
-            matchID = Integer.parseInt(matchIDStr);
-            amount = Integer.parseInt(amountStr);
+            receiptid = Integer.parseInt(receiptidStr);
+            totalprice = Float.parseFloat(totalPriceStr);
         }catch(NumberFormatException e){
             e.printStackTrace();
         }
         
         UserAccount user = getUserDao().getUserbyName(username);
-        float credit = user.getCredit(); // kiểm tra tiền của user
+        float credit = user.getCredit();
+        Receipt r = getReceiptDao().getReceiptById(receiptid);
         
-        // kiểm tra số vé
-        int number_of_ticket_availble = 0;
-        ArrayList<Ticket> ticket = getTicketDao().getTicketByMatchID(matchID); 
-        for(Ticket t : ticket){
-            if(t.getIsAvailable() == 1){
-               number_of_ticket_availble++;
-            }
+        if(credit >= totalprice){
+            r.setStatus(true);
+            getReceiptDao().updateReceiptStatus(receiptid);
+            user.setCredit(credit - totalprice);
+            getUserDao().editCredit(user);
             
-        }
-        
-        //
-        float totalprice = 0;
-        Receipt r = new Receipt(user.getUserID(),0, 0);
-        if(ticket != null && number_of_ticket_availble >= amount){ // nếu còn vé
-            float price = ticket.get(0).getCost();
-            totalprice = amount * price;
-            
-            if(credit > totalprice){ // nếu tài khoản đủ tiền
-                user.setCredit(credit - totalprice);
-                getUserDao().editCredit(user);
-                getTicketDao().updateTicket(matchID, amount);
-                getMatchDao().updateMatchTicket(matchID, amount);
-                
-                r = new Receipt(user.getUserID(), totalprice, amount);
-                getReceiptDao().createReceipt(r);
-                
-                message += "Thanh toán thành công";
-                
-               
-            }else{  // nếu tài khoản không đủ tiền
-                // viết chức năng nạp tiền ở đây
-                message += "Không đủ tiền trong tài khoản. Xin hãy nạp tiền";
-                
-            }
-            
+            message += "Mua vé thành công";
         }else{
-            // hết vé hoặc số vé mua lớn hơn số vé còn lại
-            message = " Không đủ vé để mua";
-            amount = 0;
-            
+            message += "Không đủ tiền, bạn muốn nạp thêm tiền hay hủy đơn?";
         }
         
-        request.setAttribute("user", user);
-        request.setAttribute("credit_left", user.getCredit());
-        request.setAttribute("totalprice", totalprice);
-        request.setAttribute("totalticket", amount);
-        request.setAttribute("message", message);
-         forward(request, response, "/WEB-INF/views/checkout.jsp");
+        request.setAttribute(message, "message");
+        forward(request, response, "/WEB-INF/views/checkout.jsp");
+        
+        
     }
-
     /**
      * Returns a short description of the servlet.
      *

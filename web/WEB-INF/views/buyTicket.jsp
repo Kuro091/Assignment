@@ -15,29 +15,16 @@
     </head>
     <body>
 
-        <%
-           
-            UserAccount user = (UserAccount)request.getAttribute("user");
-            String matchIDStr = request.getParameter("matchID");
-            String username = request.getParameter("username");
-            
-            int matchID = 0;
-            int userID = 0;
-            try {
-                matchID = Integer.parseInt(matchIDStr);
-                
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-
-        %>
-        <form method="post" action="checkout">
-            Trận đấu:<input type="visible" name="matchname" value="${requestScope.matchname}"></br>
-            <input type="hidden" name="matchID" value="<%=matchID%>">
-            Người mua:<input type="visible" name="username" value="<%=username%>"></br>
-            Tổng tiền trong tài khoản:<input type="visible"  value="<%=user.getCredit()%>"></br>
-            Số lượng vé:<input type="number"  name="amount" ></br>
-            <input type="submit" name = "checkout" value="Thanh toán">
+     
+        <form method="post" action="orderstatus">
+            <input type="hidden" name="matchID" value="${match.getMatchID()}">
+            <input type="hidden" name="username" value="${user.getUserName()}">
+            <p>Trận đấu:${match.getHost()}  VS  ${match.getGuest()}</p>
+            <p>Người mua:${user.getUserName()}</p>
+            <p>Tổng tiền trong tài khoản:${user.getCredit()}</p>
+            <p>Số lượng vé:${ticket}</p>
+            Quanity<input type="number"  name="amount" min="1" max="4"></br>
+            <input type="submit" name = "checkout" value="Xác nhận">
         </form>
             
     </body>

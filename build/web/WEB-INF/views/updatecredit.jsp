@@ -9,9 +9,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Nạp tiền</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form method="post" action="updatecredit">
+            <input type="hidden" name="username" value="${user.getUserName()}">
+            <input type="hidden" name="credit" value="${user.getCredit()}">
+            <p>Tiền trong tài khoản:${user.getCredit()}</p>
+            Số tiền muốn nạp:<input name = "money" type="number"></br>
+            <input type="submit" value = "Nạp tiền">
+        </form>
     </body>
 </html>

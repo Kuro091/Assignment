@@ -7,18 +7,16 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.*;
 
 /**
  *
  * @author admin
  */
-public class buyTicket extends BaseServlet {
+public class cancelorderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +35,10 @@ public class buyTicket extends BaseServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet buyTicket</title>");
+            out.println("<title>Servlet cancelorderServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet buyTicket at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet cancelorderServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,9 +56,7 @@ public class buyTicket extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        doPost(request, response);
-
+        processRequest(request, response);
     }
 
     /**
@@ -74,33 +70,7 @@ public class buyTicket extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String matchIDStr = request.getParameter("matchID");
-        UserAccount user = getUserDao().getUserbyName(username);
-        int matchID = 0;
-
-        try {
-            matchID = Integer.parseInt(matchIDStr);
-
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        
-          int number_of_ticket_availble = 0;
-        ArrayList<Ticket> ticket = getTicketDao().getTicketByMatchID(matchID); 
-        for(Ticket t : ticket){
-            if(t.getIsAvailable() == 1){
-               number_of_ticket_availble++;
-            }
-            
-        }
-        Match match = getMatchDao().getMatchByID(matchID);
-        String matchname = match.getHost() + " VS " + match.getGuest();
-        request.setAttribute("match", match);
-        request.setAttribute("user", user);
-        request.setAttribute("ticket", number_of_ticket_availble);
-        forward(request, response, "/WEB-INF/views/buyTicket.jsp");
-
+        processRequest(request, response);
     }
 
     /**
