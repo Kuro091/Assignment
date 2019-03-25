@@ -31,7 +31,7 @@
                 <div class="container">
                     <br/><br/>
                     <h3>Login Page</h3>
-                    <div class="alert alert-default">${errorMessage}</div>
+                    <div class="alert-danger"><p style="color: red;">${errorMessage}</p></div>
                 <div class="col-lg-5 col-md-6 offset-lg-0 offset-md-3">
                     <div id="square7" class="square square-7"></div>
                     <div id="square8" class="square square-8"></div>
