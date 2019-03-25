@@ -95,7 +95,7 @@ public class updatecreditServlet extends BaseServlet {
                 dispatcher.forward(request, response);
                 return;
             }else{
-                getUserDao().editCredit(user);
+                getUserDao().editCredit(p);
                 request.setAttribute("infoSuccess", "Đăng ký thành công!!");
                 response.sendRedirect(request.getContextPath() + "/index");
             }
