@@ -84,7 +84,7 @@ public class registerServlet extends BaseServlet {
             errorString += "Chưa điền đúng số điện thoại!!<br/>";
         }
 
-         if(getUserDao().getUserbyID(idStr)!=null){
+         if(getUserDao().getUserbyID(id)!=null){
                 errorString += "Số CMND đã tồn tại<br/>";
             }
          

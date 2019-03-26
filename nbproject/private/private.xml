@@ -5,16 +5,12 @@
         <group>
             <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/src/java/view/UserDao.java</file>
             <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/src/java/servlets/adminPanel.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/src/java/servlets/cancelorderServlet.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/web/WEB-INF/views/orderstatus.jsp</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/src/java/servlets/adminCancelOrder.java</file>
             <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/src/java/view/ReceiptDao.java</file>
             <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/web/WEB-INF/views/_menu.jsp</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/src/java/model/Receipt.java</file>
             <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/src/java/servlets/adminAccept.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/web/WEB-INF/views/adminViewOrder.jsp</file>
             <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/src/java/servlets/addCreditServlet.java</file>
             <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/src/java/servlets/buyTicket.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/GitHub/Assignment/src/java/servlets/checkoutServlet.java</file>
         </group>
     </open-files>
 </project-private>
