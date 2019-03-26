@@ -50,7 +50,7 @@ public class checkoutServlet extends BaseServlet {
             user.setCredit(credit - totalprice);
             getUserDao().addCredit(user.getUserID(), credit - totalprice);
             
-            message += "Mua vé thành công";
+            message += "Book vé thành công";
         }else{
             message += "Không đủ tiền, bạn muốn nạp thêm tiền hay hủy đơn?";
         }
