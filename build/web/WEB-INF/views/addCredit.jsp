@@ -100,7 +100,7 @@
 Số tiền muốn nạp:<input name = "money" type="number"></br>
 <input type="submit" value = "Nạp tiền">--%>
         </form>
-
+<br/><br/><br/><br/><br/><br/><br/><br/>
         <jsp:include page="_footer.jsp"></jsp:include>
         <!-- Core -->
         <script src="assets/js/core/jquery.min.js"></script>

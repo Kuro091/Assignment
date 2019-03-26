@@ -69,7 +69,7 @@
                     <input type="submit"class="btn_buy_ticket" value="Thanh toán">
                 </div>
             </div>
-
+ 
             <jsp:include page="_footer.jsp"></jsp:include>
 
             <!-- Core -->
