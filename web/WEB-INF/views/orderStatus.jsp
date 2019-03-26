@@ -22,6 +22,7 @@
         </style>
     </head>
     <body class="landing-page">
+      
         <jsp:include page="_menu.jsp"></jsp:include>
 
             <div class="wrapper">
@@ -36,6 +37,7 @@
                         <div class="row row-grid justify-content-between align-items-center text-left">
                             <div class="col-lg-6">
                                 <h1 class="text-white">Xác nhận đơn hàng</h1>
+                                  <h2 class="text-white">${message}</h2>
 
                             </div>
                         </div>

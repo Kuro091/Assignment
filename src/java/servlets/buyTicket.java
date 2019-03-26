@@ -53,12 +53,12 @@ public class buyTicket extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-       String username = request.getParameter("username");
+        String username = request.getParameter("username");
         String matchIDStr = request.getParameter("matchID");
         String amountStr = request.getParameter("amount");
         int matchID = 0, amount = 0;
         String message = "";
-        String status="";
+        String status = "";
         try {
             matchID = Integer.parseInt(matchIDStr);
             amount = Integer.parseInt(amountStr);
@@ -66,7 +66,9 @@ public class buyTicket extends BaseServlet {
             e.printStackTrace();
         }
 
+        
         UserAccount user = getUserDao().getUserbyName(username);
+        request.setAttribute("user", user);
         float credit = user.getCredit(); // kiểm tra tiền của user
 
         // kiểm tra số vé
@@ -79,39 +81,68 @@ public class buyTicket extends BaseServlet {
 
         }
 
+        int check_receipt = 0;
+        Receipt r1 = null;
+        ArrayList<Receipt> rece = getReceiptDao().getAllReceiptById(user.getUserID());
+        for (Receipt r : rece) {
+            if (r.isStatus() == false) {
+                check_receipt++;
+                r1 = new Receipt(r.getReceiptID(), r.getUserID(), r.getTotalprice(), r.getTotalticket(), r.isStatus());
+            }
+        }
+
         //
         float totalprice = 0;
         Receipt r = new Receipt(user.getUserID(), totalprice, 0, false);
-        if (ticket != null && number_of_ticket_availble >= amount) { // nếu còn vé
-            float price = ticket.get(0).getCost();
-            totalprice = amount * price;
-            r.setTotalprice(totalprice);
-            r.setTotalticket(amount);
 
-          //  user.setCredit(credit - totalprice);
-            //getUserDao().editCredit(user);
-            getTicketDao().updateTicket(matchID, amount);
-            getMatchDao().updateMatchTicket(matchID, amount);
+        if (check_receipt == 0) {
+            if (ticket != null && number_of_ticket_availble >= amount) { // nếu còn vé
+                float price = ticket.get(0).getCost();
+                totalprice = amount * price;
+                r.setTotalprice(totalprice);
+                r.setTotalticket(amount);
+
+                //  user.setCredit(credit - totalprice);
+                //getUserDao().editCredit(user);
+                getTicketDao().updateTicket(matchID, amount);
+                getMatchDao().updateMatchTicket(matchID, amount);
+
+                getReceiptDao().createReceipt(r);
+
+                message += "Thanh toán thành công";
+
+            } else {
+                // hết vé hoặc số vé mua lớn hơn số vé còn lại
+                message = " Không đủ vé để mua";
+                amount = 0;
+
+            }
+            Receipt receipt = getReceiptDao().getLastReceiptByUserid(user.getUserID());
+            request.setAttribute("receipt", receipt);
+            request.setAttribute("matchid", matchIDStr);
+            request.setAttribute("message", message);
+            forward(request, response, "/WEB-INF/views/orderstatus.jsp");
+        }else{
+            message = "Có hóa đơn chưa thanh toán.Bạn không để đặt thêm vé.Xin hãy thanh toán hóa đơn cũ";
+             request.setAttribute("message", message);
+            request.setAttribute("receipt", r1);
+            request.setAttribute("matchid", matchID);
             
-            getReceiptDao().createReceipt(r);
-
-            message += "Thanh toán thành công";
-
-        } else {
-            // hết vé hoặc số vé mua lớn hơn số vé còn lại
-            message = " Không đủ vé để mua";
-            amount = 0;
-
+            forward(request, response, "/WEB-INF/views/orderstatus.jsp");
         }
+    }
+
+    
+    
+
+    
+            
         
-        Receipt receipt = getReceiptDao().getLastReceiptByUserid(user.getUserID());
+      
         
         
-        request.setAttribute("user", user);
-        request.setAttribute("receipt", receipt);
-        request.setAttribute("matchid", matchIDStr);
-        request.setAttribute("message", message);
-        forward(request, response, "/WEB-INF/views/orderstatus.jsp");}
+        
+       
 
     @Override
     public String getServletInfo() {
