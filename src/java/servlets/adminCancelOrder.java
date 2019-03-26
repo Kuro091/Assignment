@@ -5,20 +5,20 @@
  */
 package servlets;
 
+import model.*;
+import java.util.ArrayList;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Receipt;
-import model.UserAccount;
 
 /**
  *
  * @author admin
  */
-public class cancelorderServlet extends BaseServlet {
+public class adminCancelOrder extends BaseServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class cancelorderServlet extends BaseServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet cancelorderServlet</title>");            
+            out.println("<title>Servlet adminCancelOrder</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet cancelorderServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet adminCancelOrder at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,7 +58,27 @@ public class cancelorderServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
+        String idStr = request.getParameter("id");
+        int id = 0;
+        String message = "";
+        System.out.println(idStr);
+        if (idStr != null) {
+            try {
+                id = Integer.parseInt(idStr);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            Receipt receipt = getReceiptDao().getReceiptById(id);
+            getTicketDao().reupdateTicket(receipt.getMatchID(), receipt.getTotalticket());
+            getReceiptDao().deleteReceiptById(id);
+            
+            message += "Đã hủy đơn hàng";
+            
+        } else {
+            message += "Không tồn tại đơn hàng";
+        }
+        request.setAttribute("message", message);
+        response.sendRedirect(request.getContextPath() + "/adminPanel");
     }
 
     /**
@@ -72,31 +92,7 @@ public class cancelorderServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idStr = request.getParameter("receiptid");
-        String matchidStr = request.getParameter("matchid");
-        int id = 0,matchid = 0;
-        try{
-            id = Integer.parseInt(idStr);
-            matchid = Integer.parseInt(matchidStr);
-        }catch(NumberFormatException e){
-            
-        }
-        System.out.print(idStr);
-        String message = "";
-        Receipt r = getReceiptDao().getReceiptById(id);
-        UserAccount user = getUserDao().getUserbyID(r.getUserID());
-        if(r.isStatus() == true && r.isIsAccept() == true){
-            message += "Đã giao hàng, không hoàn tiền";
-        }else if(r.isStatus() == true && r.isIsAccept() == false){
-            message += "Hủy đơn thành công. Đã hoàn tiền";
-            getUserDao().addCredit(r.getUserID(), user.getCredit()+r.getTotalprice());
-        }else{
-            getReceiptDao().deleteReceiptById(id);
-            getTicketDao().reupdateTicket(matchid, r.getTotalticket());
-            message += "Hủy đơn thành công";
-        }
-        request.setAttribute("message", message);
-        forward(request, response, "/WEB-INF/views/cancelorder.jsp");
+        processRequest(request, response);
     }
 
     /**

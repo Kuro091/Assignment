@@ -43,14 +43,8 @@ public class addCreditServlet extends BaseServlet {
             errorString += "Không thể có trường trống";
         }
         
-        if (errorString != null && errorString.contains("null")) {
-            errorString = errorString.substring(errorString.indexOf("null") + 4, errorString.length());
-        }
-
-        UserAccount u = getUserDao().getUserbyID(userIDStr);
-        
         float creditNew = 0;
-        float creditOld = u.getCredit();
+        
         int userID = 0;
         float credit =0;
         try{
@@ -60,6 +54,14 @@ public class addCreditServlet extends BaseServlet {
         }catch(NumberFormatException ex){
             ex.printStackTrace();
         }
+        
+        if (errorString != null && errorString.contains("null")) {
+            errorString = errorString.substring(errorString.indexOf("null") + 4, errorString.length());
+        }
+
+        UserAccount u = getUserDao().getUserbyID(userID);
+        float creditOld = u.getCredit();
+      
         
         credit = creditOld + creditNew;
         //System.out.println(credit + " " +creditOld + " " + creditNew);

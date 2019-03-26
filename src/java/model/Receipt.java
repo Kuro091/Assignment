@@ -15,28 +15,27 @@ public class Receipt {
     private float totalprice;
     private int totalticket;
     private boolean status;
+    private boolean isAccept;
+    private int matchID;
 
-    public Receipt() {
-    }
-
-    
-    
-    public Receipt(int userID, float totalprice, int totalticket, boolean status) {
+    public Receipt(int userID, float totalprice, int totalticket, boolean status, boolean isAccept, int matchID) {
         this.userID = userID;
         this.totalprice = totalprice;
         this.totalticket = totalticket;
         this.status = status;
+        this.isAccept = isAccept;
+        this.matchID = matchID;
     }
 
-    public Receipt(int receiptID, int userID, float totalprice, int totalticket, boolean status) {
+    public Receipt(int receiptID, int userID, float totalprice, int totalticket, boolean status, boolean isAccept, int matchID) {
         this.receiptID = receiptID;
         this.userID = userID;
         this.totalprice = totalprice;
         this.totalticket = totalticket;
         this.status = status;
+        this.isAccept = isAccept;
+        this.matchID = matchID;
     }
-    
-    
 
     public int getReceiptID() {
         return receiptID;
@@ -78,11 +77,28 @@ public class Receipt {
         this.status = status;
     }
 
+    public boolean isIsAccept() {
+        return isAccept;
+    }
+
+    public void setIsAccept(boolean isAccept) {
+        this.isAccept = isAccept;
+    }
+
+    public int getMatchID() {
+        return matchID;
+    }
+
+    public void setMatchID(int matchID) {
+        this.matchID = matchID;
+    }
+
     @Override
     public String toString() {
-        return "Receipt{" + "receiptID=" + receiptID + ", userID=" + userID + ", totalprice=" + totalprice + ", totalticket=" + totalticket + ", status=" + status + '}';
+        return "Receipt{" + "receiptID=" + receiptID + ", userID=" + userID + ", totalprice=" + totalprice + ", totalticket=" + totalticket + ", status=" + status + ", isAccept=" + isAccept + ", matchID=" + matchID + '}';
     }
-    
+
+  
 
    
 }

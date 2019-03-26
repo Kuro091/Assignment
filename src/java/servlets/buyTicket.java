@@ -86,13 +86,13 @@ public class buyTicket extends BaseServlet {
         for (Receipt r : rece) {
             if (r.isStatus() == false) {
                 check_receipt++;
-                r1 = new Receipt(r.getReceiptID(), r.getUserID(), r.getTotalprice(), r.getTotalticket(), r.isStatus());
+                r1 = new Receipt(r.getReceiptID(), r.getUserID(), r.getTotalprice(), r.getTotalticket(), r.isStatus(),r.isIsAccept(),r.getMatchID());
             }
         }
 
         //
         float totalprice = 0;
-        Receipt r = new Receipt(user.getUserID(), totalprice, 0, false);
+        Receipt r = new Receipt(user.getUserID(), totalprice, 0, false,false,matchID);
 
         if (check_receipt == 0) {
             if (ticket != null && number_of_ticket_availble >= amount) { // nếu còn vé
@@ -100,7 +100,8 @@ public class buyTicket extends BaseServlet {
                 totalprice = amount * price;
                 r.setTotalprice(totalprice);
                 r.setTotalticket(amount);
-
+                r.setMatchID(matchID);
+                System.out.println(matchID);
                 //  user.setCredit(credit - totalprice);
                 //getUserDao().editCredit(user);
                 getTicketDao().updateTicket(matchID, amount);

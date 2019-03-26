@@ -31,13 +31,15 @@ public class ReceiptDao {
     public void createReceipt(Receipt r){
          try {            
             PreparedStatement preparedStatement = connection.
-                    prepareStatement("insert into Receipt(UserID,TotalPrice,TotalTicket,Status) values(?,?,?,?)");
+                    prepareStatement("insert into Receipt(UserID,TotalPrice,TotalTicket,Status,isAccept,matchID) values(?,?,?,?,?,?)");
             
             
             preparedStatement.setInt(1, r.getUserID());
             preparedStatement.setFloat(2, r.getTotalprice());
             preparedStatement.setInt(3, r.getTotalticket());
             preparedStatement.setBoolean(4, r.isStatus());
+            preparedStatement.setBoolean(5, r.isIsAccept());
+            preparedStatement.setInt(6, r.getMatchID());
             preparedStatement.executeUpdate();
             
         } catch (SQLException e) {
@@ -53,7 +55,7 @@ public class ReceiptDao {
             psmt.setInt(1, id);
             ResultSet rs = psmt.executeQuery();
             while(rs.next()){
-                r = new Receipt(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getInt(4), rs.getBoolean(5));
+                r = new Receipt(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getInt(4), rs.getBoolean(5),rs.getBoolean(6),rs.getInt(7));
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -95,7 +97,7 @@ public class ReceiptDao {
             psmt.setInt(2, id);
             ResultSet rs = psmt.executeQuery();
             while(rs.next()){
-                r = new Receipt(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getInt(4), rs.getBoolean(5));
+                r = new Receipt(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getInt(4), rs.getBoolean(5),rs.getBoolean(6),rs.getInt(7));
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -126,7 +128,7 @@ public class ReceiptDao {
             psmt.setInt(1, id);
             ResultSet rs = psmt.executeQuery();
             while(rs.next()){
-                Receipt r = new Receipt(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getInt(4), rs.getBoolean(5));
+                Receipt r = new Receipt(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getInt(4), rs.getBoolean(5),rs.getBoolean(6),rs.getInt(7));
                 receipt.add(r);
             }
         }catch(SQLException e){
@@ -135,4 +137,33 @@ public class ReceiptDao {
         return receipt;
     }
     
+    
+       public ArrayList<Receipt> getAllReceiptByStatus(int status){
+        ArrayList<Receipt> receipt = new ArrayList<>();
+        try{
+            String sql = "Select * from Receipt where Status = ? and isAccept = 0";
+            PreparedStatement psmt = connection.prepareStatement(sql);
+            psmt.setInt(1, status);
+            ResultSet rs = psmt.executeQuery();
+            while(rs.next()){
+                Receipt r = new Receipt(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getInt(4), rs.getBoolean(5),rs.getBoolean(6),rs.getInt(7));
+                receipt.add(r);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return receipt;
+    }
+       
+       public void acceptReceiptById(int id){
+             try{
+            String sql = "update Receipt set isAccept = 1 where ReceiptID = ?";
+            PreparedStatement psmt = connection.prepareStatement(sql);
+            psmt.setInt(1, id);
+            psmt.executeUpdate();
+        
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+       }
 }

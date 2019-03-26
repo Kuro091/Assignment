@@ -98,12 +98,12 @@ public class UserDao {
         }
     }
     
-     public UserAccount getUserbyID(String id) {
+     public UserAccount getUserbyID(int id) {
         try {
             PreparedStatement preparedStatement = connection.
                     prepareStatement("SELECT * FROM Users "
                             + "WHERE UserID = ?");
-            preparedStatement.setString(1, id);
+            preparedStatement.setInt(1, id);
 
             ResultSet rs = preparedStatement.executeQuery();
 

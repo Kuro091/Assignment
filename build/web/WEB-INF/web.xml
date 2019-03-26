@@ -48,6 +48,18 @@
         <servlet-name>addCreditServlet</servlet-name>
         <servlet-class>servlets.addCreditServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>adminPanel</servlet-name>
+        <servlet-class>servlets.adminPanel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminAccept</servlet-name>
+        <servlet-class>servlets.adminAccept</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminCancelOrder</servlet-name>
+        <servlet-class>servlets.adminCancelOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>homeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -95,6 +107,18 @@
     <servlet-mapping>
         <servlet-name>addCreditServlet</servlet-name>
         <url-pattern>/addCredit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminPanel</servlet-name>
+        <url-pattern>/adminPanel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminAccept</servlet-name>
+        <url-pattern>/adminAccept</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminCancelOrder</servlet-name>
+        <url-pattern>/adminCancelOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
