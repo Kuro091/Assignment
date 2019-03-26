@@ -56,9 +56,15 @@
     </table>
 
     ------------------------------------------->
+            <c:if test="${loginedUser.getMainRole()=='USER'}">
+                <c:set var="href" value="${pageContext.request.contextPath}/buyTicket"></c:set>
+            </c:if>
 
+            <c:if test="${loginedUser.getMainRole()=='ADMIN'}">
+                <c:set var="href" value="${pageContext.request.contextPath}/adminPanel"></c:set>
+            </c:if>
             <c:forEach items="${matches}" var="m">
-                <form action="${pageContext.request.contextPath}/buyTicket">
+                <form action="${href}">
                     <div class="box_team">
                         <div class="header_box_team">
                             <div class="row">
@@ -94,9 +100,15 @@
                             </div>
                         </div>
                         <div class="bottom_btn">
-                            <input type="hidden" name="matchID" value="${m.matchID}">
-                            <input type="hidden" name="username" value="${loginedUser.userName}">
-                            <input type="submit" class="btn_buy_ticket" value="MUA VÉ" onclick="">
+                            <c:if test="${loginedUser.getMainRole()=='ADMIN'}">
+                                <input type="submit" class="btn_buy_ticket" value="CHUYỂN SANG QUẢN LÝ ORDER CỦA USERS" onclick="">
+                            </c:if>
+
+                            <c:if test="${loginedUser.getMainRole()=='USER'}">
+                                <input type="hidden" name="matchID" value="${m.matchID}">
+                                <input type="hidden" name="username" value="${loginedUser.userName}">
+                                <input type="submit" class="btn_buy_ticket" value="MUA VÉ" onclick="">
+                            </c:if>
                             <div class="clearfix"></div>
                         </div>
                     </div>

@@ -66,7 +66,6 @@ public class buyTicket extends BaseServlet {
             e.printStackTrace();
         }
 
-        
         UserAccount user = getUserDao().getUserbyName(username);
         request.setAttribute("user", user);
         float credit = user.getCredit(); // kiểm tra tiền của user
@@ -111,38 +110,37 @@ public class buyTicket extends BaseServlet {
 
                 message += "Thanh toán thành công";
 
+                Receipt receipt = getReceiptDao().getLastReceiptByUserid(user.getUserID());
+                request.setAttribute("receipt", receipt);
+                request.setAttribute("matchid", matchIDStr);
+                request.setAttribute("message", message);
+                forward(request, response, "/WEB-INF/views/orderstatus.jsp");
+
             } else {
                 // hết vé hoặc số vé mua lớn hơn số vé còn lại
                 message = " Không đủ vé để mua";
                 amount = 0;
 
+                request.setAttribute("message", message);
+                request.setAttribute("user", user);
+                Match m = getMatchDao().getMatchByID(matchID);
+                request.setAttribute("match", m);
+                String ticketLeft = request.getParameter("ticketLeft");
+                request.setAttribute("matchid", matchIDStr);
+                request.setAttribute("ticket", ticketLeft);
+                forward(request, response, "/WEB-INF/views/buyTicket.jsp");
+
             }
-            Receipt receipt = getReceiptDao().getLastReceiptByUserid(user.getUserID());
-            request.setAttribute("receipt", receipt);
-            request.setAttribute("matchid", matchIDStr);
-            request.setAttribute("message", message);
-            forward(request, response, "/WEB-INF/views/orderstatus.jsp");
-        }else{
+
+        } else {
             message = "Có hóa đơn chưa thanh toán.Bạn không để đặt thêm vé.Xin hãy thanh toán hóa đơn cũ";
-             request.setAttribute("message", message);
+            request.setAttribute("message", message);
             request.setAttribute("receipt", r1);
             request.setAttribute("matchid", matchID);
-            
+
             forward(request, response, "/WEB-INF/views/orderstatus.jsp");
         }
     }
-
-    
-    
-
-    
-            
-        
-      
-        
-        
-        
-       
 
     @Override
     public String getServletInfo() {
