@@ -90,6 +90,7 @@ public class cancelorderServlet extends BaseServlet {
         }else if(r.isStatus() == true && r.isIsAccept() == false){
             message += "Hủy đơn thành công. Đã hoàn tiền";
             getUserDao().addCredit(r.getUserID(), user.getCredit()+r.getTotalprice());
+            getTicketDao().reupdateTicket(matchid, r.getTotalticket());
         }else{
             getReceiptDao().deleteReceiptById(id);
             getTicketDao().reupdateTicket(matchid, r.getTotalticket());
