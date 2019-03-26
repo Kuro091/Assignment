@@ -109,7 +109,7 @@ public class buyTicket extends BaseServlet {
 
                 getReceiptDao().createReceipt(r);
 
-                message += "Thanh toán thành công";
+                message += "Tạo hóa đơn thành công! Vui lòng thanh toán:";
 
                 Receipt receipt = getReceiptDao().getLastReceiptByUserid(user.getUserID());
                 request.setAttribute("receipt", receipt);
@@ -134,10 +134,11 @@ public class buyTicket extends BaseServlet {
             }
 
         } else {
-            message = "Có hóa đơn chưa thanh toán.Bạn không để đặt thêm vé.Xin hãy thanh toán hóa đơn cũ";
+            message = "Có hóa đơn chưa thanh toán. Bạn không để đặt thêm vé. Xin hãy thanh toán hóa đơn cũ";
             request.setAttribute("message", message);
             request.setAttribute("receipt", r1);
             request.setAttribute("matchid", matchID);
+            request.setAttribute("coHoaDon", "cewefwef");
 
             forward(request, response, "/WEB-INF/views/orderstatus.jsp");
         }

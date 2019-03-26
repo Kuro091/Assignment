@@ -24,7 +24,7 @@
                             <h2 class="display-2">
                                 <i class="tim-icons icon-paper"></i>Hệ thống đặt vé bóng đá
                                 <small class="text-muted"><mark>online</mark></small>
-                                <p class="h2" style="color:white">Hi vọng là pass môn PRJ :<</p>
+                                <p class="h2" style="color:white">đây là một dòng sub header</p>
                             </h2>
                         </div>
                     </div>

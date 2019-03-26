@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<nav class="navbar navbar-expand-lg fixed-top navbar-transparent" id="navbar" style="color: black">
+<nav class="navbar navbar-expand-lg fixed-top navbar-transparent" id="navbar">
     <div class="container">
         <c:choose>
             <c:when test="${empty loginedUser}">
@@ -16,7 +16,7 @@
                 <c:set var="homeRef" value="index"></c:set>
             </c:otherwise>
         </c:choose>
-        <a class="navbar-brand" href="${homeRef}">Bóng đá ticket thingy</a>
+        <a class="navbar-brand" href="${homeRef}"><b>Bóng đá </b> ⚽ ticket thingy</a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -72,9 +72,9 @@
         var nav = document.getElementById('navbar');
         if (document.documentElement.scrollTop || document.body.scrollTop > window.innerHeight) {
             nav.classList.remove('navbar-transparent');
-            nav.classList.add('primary-color');
+            nav.classList.add('bg-white');
         } else {
-            nav.classList.remove('primary-color');
+            nav.classList.remove('bg-white');
             nav.classList.add('navbar-transparent');
 
         }

@@ -4,6 +4,7 @@
     Author     : User
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,38 +23,39 @@
         </style>
     </head>
     <body class="landing-page">
-      
+
         <jsp:include page="_menu.jsp"></jsp:include>
 
             <div class="wrapper">
                 <div class="page-header">
-                    <img src="../assets/img/blob.png" class="path">
-                    <img src="../assets/img/path2.png" class="path2">
-                    <img src="../assets/img/triunghiuri.png" class="shapes triangle">
-                    <img src="../assets/img/waves.png" class="shapes wave">
-                    <img src="../assets/img/patrat.png" class="shapes squares">
-                    <img src="../assets/img/cercuri.png" class="shapes circle">
+                    <img src="assets/img/blob.png" class="path">
+                    <img src="assets/img/path2.png" class="path2">
+                    <img src="assets/img/triunghiuri.png" class="shapes triangle">
+                    <img src="assets/img/waves.png" class="shapes wave">
+                    <img src="assets/img/patrat.png" class="shapes squares">
+                    <img src="assets/img/cercuri.png" class="shapes circle">
                     <div class="content-center">
                         <div class="row row-grid justify-content-between align-items-center text-left">
-                            <div class="col-lg-6">
+                            <div class="">
                                 <h1 class="text-white">Xác nhận đơn hàng</h1>
-                                  <h2 class="text-white">${message}</h2>
-
-                            </div>
+                            <c:if test="${not empty message}">
+                                <h2 class="text-white">${message}</h2>
+                            </c:if>
                         </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Mã hóa đơn</th>
-                                    <th>Người đặt hàng</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Tổng số vé</th>
-                                    <th class="text-right">Trạng thái</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">${receipt.getReceiptID()}</td>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Mã hóa đơn</th>
+                                <th>Người đặt hàng</th>
+                                <th>Tổng tiền</th>
+                                <th>Tổng số vé</th>
+                                <th class="text-right">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">${receipt.getReceiptID()}</td>
                                 <td>${user.getUserName()}</td>
                                 <td>${receipt.getTotalprice()}</td>
                                 <td>${receipt.getTotalticket()}</td>
@@ -66,13 +68,15 @@
                             <input type="hidden" name="totalprice" value="${receipt.getTotalprice()}">
                             <input type="hidden" name="userid" value="${user.getUserID()}">
                             <input type="hidden" name="matchid" value="${matchid}">
+                            <c:if test="${empty coHoaDon}">
                             <input type="submit"class="btn_buy_ticket" value="Thanh toán">
+                            </c:if>
                         </form>
                     </table>
-                    
+
                 </div>
             </div>
- 
+
             <jsp:include page="_footer.jsp"></jsp:include>
 
             <!-- Core -->

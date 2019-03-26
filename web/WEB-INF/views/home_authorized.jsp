@@ -4,6 +4,7 @@
     Author     : Asus
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,8 +21,8 @@
         <!-- Theme CSS -->
         <link type="text/css" href="assets/css/blk-design-system.css" rel="stylesheet">
         <link type="text/css" href="assets/css/customcss.css" rel="stylesheet">
-        <style>
-        </style>
+        
+        
     </head>
     <body class ="profile-page">
         <jsp:include page="_menu.jsp"></jsp:include>
@@ -31,9 +32,9 @@
                 <img src="assets/img/path4.png" class="path">
                 <div class="container align-items-center">
                     <div class="alert-info"><h4 class="text-center">${infoSuccess}</h4></div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <h1 class="profile-title text-left">${loginedUser.userName}'s mainpage</h1>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <h1 class="profile-title text-left">${loginedUser.userName}'s mainpage</h1>
                         <h5 class="text-on-back">Mainpage</h5>
                         <p class="profile-description">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br/>
                             aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br/>
@@ -48,7 +49,12 @@
                             </div>
                             <div class="card-body align-items-center wrapper">
                                 <h3 style="margin-left:15%">Your Credit: ${loginedUser.getCredit()}</h3>
-                                <a href=""><h3 style="margin-left:15%"> Click to view your orders </h3></a>
+                                <c:if test="${loginedUser.getMainRole() == 'ADMIN'}">
+                                <a href="adminPanel"><h3 style="margin-left:15%"> Click to <b>view users' orders </b></h3></a>
+                                </c:if>
+                                 <c:if test="${loginedUser.getMainRole() == 'USER'}">
+                                <a href="viewOrders"><h3 style="margin-left:15%"> Click to <b>view your orders </b></h3></a>
+                                </c:if>
                             </div>
                         </div>
                     </div>

@@ -33,15 +33,17 @@ public class SecurityConfig {
         urlPatterns1.add("/viewMatches");
         urlPatterns1.add("/buyTicket");
         urlPatterns1.add("/addCredit");
+        urlPatterns1.add("/viewOrders");
+        
         mapConfig.put(ROLE_USER, urlPatterns1);
  
         // Configure For "admin" Role.
         List<String> urlPatterns2 = new ArrayList<String>();
- 
+        
         urlPatterns2.add("/userInfo");
         urlPatterns2.add("/index");
         urlPatterns2.add("/viewMatches");
-        urlPatterns2.add("/manageUsers");
+        urlPatterns2.add("/adminPanel");
  
         mapConfig.put(ROLE_ADMIN, urlPatterns2);
     }

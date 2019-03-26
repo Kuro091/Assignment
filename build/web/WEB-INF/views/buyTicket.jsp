@@ -4,6 +4,7 @@
     Author     : admin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
@@ -39,9 +40,11 @@
         <br/><br/><br/><br/>
 
         <div class="container">
-            <div class="alert-danger"><h4 class="col-5">${message}</h4></div>
-            <form method="post" action="${pageContext.request.contextPath}/buyTicket">
-                <h1 class="alert alert-info text-center">Chọn số vé bạn muốn mua cho trận đấu này</h1>
+        <c:if test="${not empty message}">
+            <h6 class="alert alert-danger text-center">${message}</h6>
+        </c:if>
+        <form method="post" action="${pageContext.request.contextPath}/buyTicket">
+            <h1 class="alert alert-info text-center">Chọn số vé bạn muốn mua cho trận đấu này</h1>
             <table class="table">
                 <thead>
                     <tr>

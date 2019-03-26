@@ -93,15 +93,6 @@
                                         <input class="form-control" placeholder="Password" type="password" name="password">
                                     </div>
                                 </div>
-                                <div class="form-check mt-3">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" checked>
-                                        <span class="form-check-sign"></span>
-                                        Remember me!
-                                    </label>
-                                </div>
-
-
                                 <div class="text-center">
                                     <input type="submit" value ="Sign in" class="btn btn-primary my-4"></button>
                                 </div>
