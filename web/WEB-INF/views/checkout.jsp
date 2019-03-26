@@ -11,12 +11,13 @@
             
         <h1>${message}</h1>
            
-                <a href="updatecredit?id=${user.userID}"  type="button">Nạp tiền</a>
+                <a href="addCredit"  type="button">Nạp tiền</a>
             
                 <form method="post" action="cancelorder">
                     <input type ="hidden" name="receiptid" value="${receipt.getReceiptID()}" >
                     <input type ="hidden" name="matchid" value="${matchid}" >
                     <input type="submit" value="Hủy">
                 </form>
+                    <a href="index">Home Page</a>
     </body>
 </html>

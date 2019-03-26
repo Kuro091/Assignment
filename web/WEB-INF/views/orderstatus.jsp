@@ -59,14 +59,15 @@
                             </tr>
                         </tbody>
 
-                        <form method="post" action="checkout">
+                        <form action="checkout">
                             <input type="hidden" name="receiptid" value="${receipt.getReceiptID()}">
                             <input type="hidden" name="totalprice" value="${receipt.getTotalprice()}">
                             <input type="hidden" name="username" value="${user.getUserName()}">
                             <input type="hidden" name="matchid" value="${matchid}">
+                            <input type="submit"class="btn_buy_ticket" value="Thanh toán">
                         </form>
                     </table>
-                    <input type="submit"class="btn_buy_ticket" value="Thanh toán">
+                    
                 </div>
             </div>
  

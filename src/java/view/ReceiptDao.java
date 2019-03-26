@@ -31,13 +31,13 @@ public class ReceiptDao {
     public void createReceipt(Receipt r){
          try {            
             PreparedStatement preparedStatement = connection.
-                    prepareStatement("insert into Receipt(ReceiptID, UserID,TotalPrice,TotalTicket,Status) values(?, ?,?,?,?)");
+                    prepareStatement("insert into Receipt(UserID,TotalPrice,TotalTicket,Status) values(?,?,?,?)");
             
-            preparedStatement.setInt(1, r.getReceiptID());
-            preparedStatement.setInt(2, r.getUserID());
-            preparedStatement.setFloat(3, r.getTotalprice());
-            preparedStatement.setInt(4, r.getTotalticket());
-            preparedStatement.setBoolean(5, r.isStatus());
+            
+            preparedStatement.setInt(1, r.getUserID());
+            preparedStatement.setFloat(2, r.getTotalprice());
+            preparedStatement.setInt(3, r.getTotalticket());
+            preparedStatement.setBoolean(4, r.isStatus());
             preparedStatement.executeUpdate();
             
         } catch (SQLException e) {

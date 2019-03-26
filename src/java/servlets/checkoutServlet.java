@@ -48,7 +48,7 @@ public class checkoutServlet extends BaseServlet {
             r.setStatus(true);
             getReceiptDao().updateReceiptStatus(receiptid);
             user.setCredit(credit - totalprice);
-            getUserDao().editCredit(user);
+            getUserDao().addCredit(user.getUserID(), credit - totalprice);
             
             message += "Mua vé thành công";
         }else{
