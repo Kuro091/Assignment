@@ -125,7 +125,7 @@ public class buyTicket extends BaseServlet {
         request.setAttribute("receipt", receipt);
         request.setAttribute("matchid", matchIDStr);
         request.setAttribute("message", message);
-        forward(request, response, "/WEB-INF/views/orderStatus.jsp");
+        forward(request, response, "/WEB-INF/views/orderstatus.jsp");
     }
 
     @Override

@@ -55,7 +55,7 @@
                 <input type="hidden" name="username" value="${user.getUserName()}">
                 <input type="hidden" name="ticketLeft" value="${ticket}">
                 <td class="text-justify">Trận đấu</td>
-                <td class="text-justify col-6"><span class="badge badge-info"><b><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <td class="text-justify "><span class="badge badge-info"><b><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <img src="${match.getFlag(match.getHost())}" height="10" alt="">${match.getHost()} 
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <img src="${match.getFlag(match.getGuest())}" height="10" alt="">${match.getGuest()}
