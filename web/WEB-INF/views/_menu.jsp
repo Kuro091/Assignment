@@ -47,6 +47,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link disabled" href="${pageContext.request.contextPath}/viewOrders">View orders</a>
+                          
                         </li>
                     </c:if>
                     <li class="nav-item">

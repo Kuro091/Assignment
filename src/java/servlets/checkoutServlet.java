@@ -26,21 +26,22 @@ public class checkoutServlet extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String totalPriceStr = request.getParameter("totalprice");
-        String username = request.getParameter("username");
+        String useridStr = request.getParameter("userid");
         String receiptidStr = request.getParameter("receiptid");
         String matchid = request.getParameter("matchid");
         String message = "";
         int receiptid = 0;
         float totalprice = 0;
-        
+        int userid = 0;
         try{
             receiptid = Integer.parseInt(receiptidStr);
             totalprice = Float.parseFloat(totalPriceStr);
+            userid = Integer.parseInt(useridStr);
         }catch(NumberFormatException e){
             e.printStackTrace();
         }
         
-        UserAccount user = getUserDao().getUserbyName(username);
+        UserAccount user = getUserDao().getUserbyID(userid);
         float credit = user.getCredit();
         Receipt r = getReceiptDao().getReceiptById(receiptid);
         

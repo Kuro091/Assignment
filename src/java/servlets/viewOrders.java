@@ -11,14 +11,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Receipt;
-import model.UserAccount;
-
+import model.*;
+import java.util.ArrayList;
+import jdk.nashorn.internal.ir.LiteralNode;
 /**
  *
  * @author admin
  */
-public class cancelorderServlet extends BaseServlet {
+public class viewOrders extends BaseServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class cancelorderServlet extends BaseServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet cancelorderServlet</title>");            
+            out.println("<title>Servlet viewOrders</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet cancelorderServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet viewOrders at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,7 +58,24 @@ public class cancelorderServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
+        String useridStr = request.getParameter("userid");
+        System.out.println("xxx");
+        System.out.println(useridStr);
+        System.out.println("yyy");
+        int userid=0;
+        String message = "";
+        try{
+            userid = Integer.parseInt(useridStr);
+        }catch(NumberFormatException e){
+            e.printStackTrace();
+        }
+        ArrayList<Receipt> pay_receipt = getReceiptDao().getAllPayReceiptById(userid);
+        ArrayList<Receipt> unpay_receipt = getReceiptDao().getAllUnPayReceiptById(userid);
+         System.out.print(pay_receipt.toString());
+         
+        request.setAttribute("pay", pay_receipt);
+        request.setAttribute("unpay", unpay_receipt);
+        forward(request, response, "/WEB-INF/views/viewOrders.jsp");
     }
 
     /**
@@ -72,32 +89,7 @@ public class cancelorderServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idStr = request.getParameter("receiptid");
-        String matchidStr = request.getParameter("matchid");
-        int id = 0,matchid = 0;
-        try{
-            id = Integer.parseInt(idStr);
-            matchid = Integer.parseInt(matchidStr);
-        }catch(NumberFormatException e){
-            
-        }
-        System.out.print(idStr);
-        String message = "";
-        Receipt r = getReceiptDao().getReceiptById(id);
-        UserAccount user = getUserDao().getUserbyID(r.getUserID());
-        if(r.isStatus() == true && r.isIsAccept() == true){
-            message += "Đã giao hàng, không hoàn tiền";
-        }else if(r.isStatus() == true && r.isIsAccept() == false){
-            message += "Hủy đơn thành công. Đã hoàn tiền";
-            getUserDao().addCredit(r.getUserID(), user.getCredit()+r.getTotalprice());
-            getTicketDao().reupdateTicket(matchid, r.getTotalticket());
-        }else{
-            getReceiptDao().deleteReceiptById(id);
-            getTicketDao().reupdateTicket(matchid, r.getTotalticket());
-            message += "Hủy đơn thành công";
-        }
-        request.setAttribute("message", message);
-        forward(request, response, "/WEB-INF/views/cancelorder.jsp");
+        processRequest(request, response);
     }
 
     /**

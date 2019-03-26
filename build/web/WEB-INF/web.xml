@@ -60,6 +60,10 @@
         <servlet-name>adminCancelOrder</servlet-name>
         <servlet-class>servlets.adminCancelOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>viewOrders</servlet-name>
+        <servlet-class>servlets.viewOrders</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>homeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>adminCancelOrder</servlet-name>
         <url-pattern>/adminCancelOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>viewOrders</servlet-name>
+        <url-pattern>/viewOrders</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
