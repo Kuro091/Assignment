@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<nav class="navbar navbar-expand-lg fixed-top navbar-transparent" id="navbar">
+<nav class="navbar navbar-expand-lg fixed-top navbar-transparent" id="navbar" style="color: black">
     <div class="container">
         <c:choose>
             <c:when test="${empty loginedUser}">
@@ -71,9 +71,9 @@
         var nav = document.getElementById('navbar');
         if (document.documentElement.scrollTop || document.body.scrollTop > window.innerHeight) {
             nav.classList.remove('navbar-transparent');
-            nav.classList.add('bg-info');
+            nav.classList.add('primary-color');
         } else {
-            nav.classList.remove('bg-info');
+            nav.classList.remove('primary-color');
             nav.classList.add('navbar-transparent');
 
         }

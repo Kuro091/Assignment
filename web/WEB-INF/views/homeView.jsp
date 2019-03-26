@@ -19,10 +19,9 @@
         <!-- Theme CSS -->
         <link type="text/css" href="assets/css/blk-design-system.css" rel="stylesheet">
         <link type="text/css" href="assets/css/customcss.css" rel="stylesheet">
-        <style>
-        </style>
+     
     </head>
-    <body class="index-page">
+    <body class="index-page ">
 
         <jsp:include page="_menu.jsp"></jsp:include>
             <div class="squares square1"></div>
@@ -42,13 +41,13 @@
                     </c:if>
                 <div class="section row">
                     <div class="col-xs-3 offset-3">
-                        <button class="btn btn-lg btn-success btn-huge" data-toggle="modal" data-target="#myModal2">
+                        <button class="btn btn-lg btn-success btn-huge animated bounceIn" data-toggle="modal" data-target="#myModal2">
                             Login
                         </button>
                     </div>
                     <div class="col-xs-3 offset-1">
                         <a href="register">
-                            <button class="btn btn-lg btn-success btn-huge" data-toggle="modal" data-target="#"  >
+                            <button class="btn btn-lg btn-success btn-huge animated bounceIn" data-toggle="modal" data-target="#"  >
                                 Register
                             </button>
                         </a>
@@ -124,6 +123,7 @@
         <!-- Theme JS -->
 
         <script src="assets/js/blk-design-system.min.js"></script>
+
     </body>
 
 </html>
