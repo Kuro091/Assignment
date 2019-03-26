@@ -44,6 +44,10 @@
         <servlet-name>cancelorderServlet</servlet-name>
         <servlet-class>servlets.cancelorderServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addCreditServlet</servlet-name>
+        <servlet-class>servlets.addCreditServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>homeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>cancelorderServlet</servlet-name>
         <url-pattern>/cancelorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addCreditServlet</servlet-name>
+        <url-pattern>/addCredit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

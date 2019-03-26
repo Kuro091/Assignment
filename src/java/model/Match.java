@@ -5,8 +5,9 @@
  */
 package model;
 
+import context.DBContext;
 import java.util.Date;
-
+import view.MatchDao;
 /**
  *
  * @author admin
@@ -30,10 +31,6 @@ public class Match {
         this.totalTicket = totalTicket;
         this.date = date;
     }
-    
-    
-    
-    
 
     public int getMatchID() {
         return matchID;
@@ -108,5 +105,7 @@ public class Match {
         return "";
     }
     
-    
+    public int getMatchListSize(){
+        return new MatchDao(new DBContext()).getMatchListSize();
+    }
 }

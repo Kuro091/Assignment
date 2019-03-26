@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.UserAccount;
@@ -56,7 +58,7 @@ public class UserDao {
                 if(isAdmin && isUser){
                     currentSize=0;
                     role[currentSize] = SecurityConfig.ROLE_ADMIN;
-                    role[currentSize++] = SecurityConfig.ROLE_USER;
+                    role[++currentSize] = SecurityConfig.ROLE_USER;
                 }else if(isAdmin){
                     currentSize=0;
                     role[currentSize] = SecurityConfig.ROLE_ADMIN;
@@ -65,6 +67,9 @@ public class UserDao {
                     role[currentSize] = SecurityConfig.ROLE_USER;
                 }
                 u = new UserAccount(userName, password, role);
+                //System.out.println("RUN: " + rs.getFloat("credit"));
+                u.setCredit(rs.getFloat("credit"));
+                u.setUserID(rs.getInt("UserID"));
                 isAdmin = false; isUser = false;
             }
         } catch (SQLException ex) {
@@ -104,11 +109,11 @@ public class UserDao {
 
             if (rs.next()) {
                 UserAccount p = new UserAccount();
-                p.setUserID(rs.getInt(1));
-                p.setUserName(rs.getString(2));
-                p.setPassword(rs.getString(3));               
-                p.setCredit(rs.getInt(4));
-                p.setPhone(rs.getInt(5));
+                p.setUserID(rs.getInt("UserID"));
+                p.setUserName(rs.getString("Username"));
+                p.setPassword(rs.getString("Password"));               
+                p.setCredit(rs.getInt("Credit"));
+                p.setPhone(rs.getInt("Phone"));
                 return p;
             }
         } catch (SQLException ex) {
@@ -118,12 +123,44 @@ public class UserDao {
         return null;
     }
     
+     public float getCredit(float userID) {
+        float result=0;
+         try {
+            PreparedStatement preparedStatement = connection.
+                    prepareStatement("select credit from Users where UserID= ?");
+            preparedStatement.setFloat(1, userID);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            if(rs.next()){
+                result = rs.getFloat("Credit");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+     
      public void editCredit(UserAccount user) {
         try {
             PreparedStatement preparedStatement = connection.
                     prepareStatement("update Users set credit = ? where UserID= ?");
             preparedStatement.setFloat(1, user.getCredit());
             preparedStatement.setInt(2, user.getUserID());
+            
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     
+     public void addCredit(int userID, Float newCredit) {
+        try {
+            PreparedStatement preparedStatement = connection.
+                    prepareStatement("update Users set credit = ? where UserID= ?");
+            preparedStatement.setFloat(1, newCredit);
+            preparedStatement.setInt(2, userID);
             
             preparedStatement.executeUpdate();
 
@@ -141,6 +178,8 @@ public class UserDao {
 
             ResultSet rs = preparedStatement.executeQuery();
 
+            List<String> roles = new ArrayList<>();
+            
             if (rs.next()) {
                 UserAccount p = new UserAccount();
                 p.setUserID(rs.getInt(1));
@@ -148,6 +187,12 @@ public class UserDao {
                 p.setPassword(rs.getString(3));               
                 p.setCredit(rs.getInt(4));
                 p.setPhone(rs.getInt(5));
+                String[] role = new String[5];
+                role = rs.getString("roles").split(",");
+                for(String r: role){
+                    roles.add(r.trim());
+                }
+                p.setRoles(roles);
                 return p;
             }
         } catch (SQLException ex) {

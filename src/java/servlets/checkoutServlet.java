@@ -25,12 +25,6 @@ public class checkoutServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
-    }
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         String totalPriceStr = request.getParameter("totalprice");
         String username = request.getParameter("username");
         String receiptidStr = request.getParameter("receiptid");
@@ -66,6 +60,12 @@ public class checkoutServlet extends BaseServlet {
         request.setAttribute("matchid", matchid);
         request.setAttribute("user", user);
         forward(request, response, "/WEB-INF/views/checkout.jsp");
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
         
         
     }

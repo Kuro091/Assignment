@@ -57,29 +57,39 @@ public class registerServlet extends BaseServlet {
         String errorString = null;
         UserAccount temp = null;
         UserAccount u = null;
-        String id =request.getParameter("id");
+        String idStr =request.getParameter("userID");
         String name = request.getParameter("username");
         String password = request.getParameter("password");
         String phoneStr = request.getParameter("phone");
+        int id = 0;
         int phone = 0;
-        int credit = 100;
+        int credit = 99999;
         
         try {
+            id =  Integer.parseInt(idStr);
             phone = Integer.valueOf(phoneStr);
         } catch (NumberFormatException e) {
 
         }
-
+           
+        if(idStr == null || idStr.isEmpty() ||
+                name==null || name.isEmpty() ||
+                password ==null || password.isEmpty() ||
+                phoneStr==null || phoneStr.isEmpty()){
+            errorString += "Chưa điền đủ thông tin!!<br/>";
+        }
       
 
         if (phone < 0 || !Integer.toString(phone).matches("\\d{10}")) {
-            errorString += "Chưa điền đủ đúng phone number format!!<br/>";
+            errorString += "Chưa điền đúng số điện thoại!!<br/>";
         }
-        
-        
 
-         if(getUserDao().getUserbyID(id)!=null){
-                errorString += "ID already existed!<br/>";
+         if(getUserDao().getUserbyID(idStr)!=null){
+                errorString += "Số CMND đã tồn tại<br/>";
+            }
+         
+         if(getUserDao().getUserbyName(name)!=null){
+                errorString += "Đã tồn tại username!<br/>";
             }
         
         if (errorString != null && errorString.contains("null")) {
@@ -94,7 +104,6 @@ public class registerServlet extends BaseServlet {
         //Nếu có lỗi thì báo, ko thì insert rồi redirect lại trang home
         if (errorString != null) {
             request.setAttribute("errorString", errorString);
-
             request.setAttribute("user", u);
             forward(request, response, "WEB-INF/views/register.jsp");
 
@@ -102,7 +111,7 @@ public class registerServlet extends BaseServlet {
         } else {
             getUserDao().addUser(u);
             request.setAttribute("infoSuccess", "Đăng ký thành công!!");
-            response.sendRedirect(request.getContextPath() + "/index");
+            forward(request, response, "WEB-INF/views/homeView.jsp");
         }
 
     }

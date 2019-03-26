@@ -1,8 +1,12 @@
 package model;
 
 
+import context.DBContext;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import view.UserDao;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,6 +24,7 @@ public class UserAccount {
     private String password;
     private float credit;
     private int phone;
+    private ArrayList<Receipt> orders = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -38,7 +43,7 @@ public class UserAccount {
     private String address;
 
     public float getCredit() {
-        return credit;
+        return new UserDao(new DBContext()).getCredit(this.userID);
     }
 
     public void setCredit(float credit) {
@@ -73,7 +78,7 @@ public class UserAccount {
         
         if(roles!=null){
             for(String r: roles){
-                System.out.println("ROLE IS" + r);
+                //System.out.println("ROLE IS" + r);
                 this.roles.add(r);
             }
         }
@@ -109,6 +114,10 @@ public class UserAccount {
 
     public UserAccount(int userID) {
         this.userID = userID;
+    }
+    
+    public String getMainRole(){
+        return roles.get(0);
     }
     
     

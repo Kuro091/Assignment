@@ -30,6 +30,7 @@
                 <img src="assets/img/dots.png" class="dots">
                 <img src="assets/img/path4.png" class="path">
                 <div class="container align-items-center">
+                    <div class="alert-info"><h4 class="text-center">${infoSuccess}</h4></div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <h1 class="profile-title text-left">${loginedUser.userName}'s mainpage</h1>
@@ -46,7 +47,7 @@
                                 <h4 class="title">Transactions</h4>
                             </div>
                             <div class="card-body align-items-center wrapper">
-                                <h3 style="margin-left:15%">Your Credit: ${loginedUser.credit}</h3>
+                                <h3 style="margin-left:15%">Your Credit: ${loginedUser.getCredit()}</h3>
                                 <a href=""><h3 style="margin-left:15%"> Click to view your orders </h3></a>
                             </div>
                         </div>

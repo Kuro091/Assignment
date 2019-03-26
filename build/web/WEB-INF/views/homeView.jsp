@@ -4,6 +4,7 @@
     Author     : Asus
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,22 +34,24 @@
         <jsp:include page="_header.jsp"></jsp:include> 
 
 
-            <div class ="">
+            <div class ="wrapper">
                 <img src="assets/img/path1.png" class="path">
                 <div class="container">
-                    <div class="section row">
-                        <div class="col-xs-3 offset-3">
-                            <button class="btn btn-lg btn-success btn-huge" data-toggle="modal" data-target="#myModal2">
-                                Login
+                <c:if test="${not empty infoSuccess}">
+                    <div class="alert alert-info"><h4 class="text-center">${infoSuccess}</h4></div>
+                    </c:if>
+                <div class="section row">
+                    <div class="col-xs-3 offset-3">
+                        <button class="btn btn-lg btn-success btn-huge" data-toggle="modal" data-target="#myModal2">
+                            Login
+                        </button>
+                    </div>
+                    <div class="col-xs-3 offset-1">
+                        <a href="register">
+                            <button class="btn btn-lg btn-success btn-huge" data-toggle="modal" data-target="#"  >
+                                Register
                             </button>
-                        </div>
-                        <div class="col-xs-3 offset-1">
-                            <a href="register">
-                                <button class="btn btn-lg btn-success btn-huge" data-toggle="modal" data-target="#"  >
-                                    Register
-                                </button>
-                            </a>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -71,39 +74,40 @@
 
 
                             <form role="form" method="POST" action="${pageContext.request.contextPath}/login">
-                            <div class="form-group mb-3">
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="tim-icons icon-email-85"></i>
-                                        </span>
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="tim-icons icon-email-85"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control" placeholder="Username" type="username" name="userName">
                                     </div>
-                                    <input class="form-control" placeholder="Username" type="username" name="userName">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="tim-icons icon-key-25"></i>
-                                        </span>
+                                <div class="form-group">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="tim-icons icon-key-25"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control" placeholder="Password" type="password" name="password">
                                     </div>
-                                    <input class="form-control" placeholder="Password" type="password" name="password">
                                 </div>
-                            </div>
-                            <div class="form-check mt-3">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" checked>
-                                    <span class="form-check-sign"></span>
-                                    Remember me!
-                                </label>
-                            </div>
+                                <div class="form-check mt-3">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <span class="form-check-sign"></span>
+                                        Remember me!
+                                    </label>
+                                </div>
 
 
-                            <div class="text-center">
-                                <input type="submit" value ="Sign in" class="btn btn-primary my-4"></button>
-                            </div>
-                        </form>
+                                <div class="text-center">
+                                    <input type="submit" value ="Sign in" class="btn btn-primary my-4"></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

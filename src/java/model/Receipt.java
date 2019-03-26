@@ -16,6 +16,11 @@ public class Receipt {
     private int totalticket;
     private boolean status;
 
+    public Receipt() {
+    }
+
+    
+    
     public Receipt(int userID, float totalprice, int totalticket, boolean status) {
         this.userID = userID;
         this.totalprice = totalprice;

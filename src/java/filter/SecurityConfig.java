@@ -31,7 +31,8 @@ public class SecurityConfig {
  
         urlPatterns1.add("/index");
         urlPatterns1.add("/viewMatches");
- 
+        urlPatterns1.add("/buyTicket");
+        urlPatterns1.add("/addCredit");
         mapConfig.put(ROLE_USER, urlPatterns1);
  
         // Configure For "admin" Role.

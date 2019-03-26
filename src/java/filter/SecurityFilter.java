@@ -58,6 +58,7 @@ public class SecurityFilter implements Filter{
         HttpServletRequest wrapRequest = request;
         
         if (loginedUser != null) {
+            System.out.println(loginedUser.toString());
             // User Name
             String userName = loginedUser.getUserName();
  
@@ -74,8 +75,7 @@ public class SecurityFilter implements Filter{
             // Redirect to the login page.
             if (loginedUser == null) {
  
-                String requestUri = request.getRequestURI();
- 
+                String requestUri = UrlPatternUtils.getFullURL(request) ;
                 // Store the current page to redirect to after successful login.
                 int redirectId = AppUtils.storeRedirectAfterLoginUrl(request.getSession(), requestUri);
  

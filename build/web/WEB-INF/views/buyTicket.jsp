@@ -4,8 +4,6 @@
     Author     : admin
 --%>
 
-<%@page import="model.*"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
@@ -20,6 +18,19 @@
     <link type="text/css" href="assets/css/blk-design-system.css" rel="stylesheet">
     <link type="text/css" href="assets/css/customcss.css" rel="stylesheet">
     <style>
+        #myselect {
+            display:inline-block; overflow:hidden; border:solid black 1px;
+        }
+
+        #myselect > select {
+            padding:10px;
+            margin:-5px -20px -5px -5px;
+            align-content: center;
+        }
+
+        #myselect > select > option:hover {
+            box-shadow: 0 0 10px 100px #4A8CF7 inset; color: white;
+        }
     </style>
 </head>
 <body class="index-page">
@@ -28,39 +39,47 @@
         <br/><br/><br/><br/>
 
         <div class="container">
-
+            <div class="alert-danger"><h4 class="col-5">${message}</h4></div>
             <form method="post" action="${pageContext.request.contextPath}/buyTicket">
+                <h1 class="alert alert-info text-center">Chọn số vé bạn muốn mua cho trận đấu này</h1>
             <table class="table">
                 <thead>
                     <tr>
                         <th class="text-center"></th>
-                        <th class="text-center">Thông tin</th>
+                        <th>Thông tin</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                 <input type="hidden" name="matchID" value="${match.getMatchID()}">
                 <input type="hidden" name="username" value="${user.getUserName()}">
+                <input type="hidden" name="ticketLeft" value="${ticket}">
                 <td class="text-justify">Trận đấu</td>
-                <td class="text-center"><span class="badge badge-info"><b><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${match.getHost()}  VS  ${match.getGuest()}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5></b></span></td>
+                <td class="text-justify col-6"><span class="badge badge-info"><b><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <img src="${match.getFlag(match.getHost())}" height="10" alt="">${match.getHost()} 
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <img src="${match.getFlag(match.getGuest())}" height="10" alt="">${match.getGuest()}
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5></b></span></td>
                 </tr>
                 <tr>
                     <td class="text-justify">Người mua</td>
-                    <td><span class="badge badge-success">${user.getUserName()}</span></td>
+                    <td class="text-justify "><span class="badge badge-success">${user.getUserName()}</span></td>
                 </tr>
                 <tr>
                     <td class="text-justify">Tổng tiền trong tài khoản</td>
-                    <td><span class="badge badge-danger">${user.getCredit()}</span></td>
+                    <td class="text-justify"><span class="badge badge-danger">${user.getCredit()}</span></td>
                 </tr>
                 <tr>
                     <td class="text-justify">Số lượng vé còn lại</td>
-                    <td><span class="badge badge-danger">${ticket}</span></td>
+                    <td class="text-justify"><span class="badge badge-danger">${ticket}</span></td>
                 </tr>
                 <tr>
                     <td class="text-justify"><b>Số lượng vé cần mua (Max 4 vé)</b></td>
 
-                    <td> <div class="form-group">
-                            <select type="number"  name="amount" multiple class="form-control">
+                    <td class="text-justify">
+                        <span class="badge badge-info"><b>Click vào số để thay đổi số lượng vé:</b></span>
+                        <div id="myselect">
+                            <select name="amount">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

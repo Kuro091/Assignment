@@ -99,10 +99,40 @@
                             <input type="submit" class="btn_buy_ticket" value="MUA VÉ" onclick="">
                             <div class="clearfix"></div>
                         </div>
-
                     </div>
                 </form>
             </c:forEach>
+
+            <nav aria-label="">
+                <ul class="pagination justify-content-center">
+                    <c:forEach var = "i" begin = "1" end = "${noOfPages}">
+                        <li class="page-item" value="${i}">
+                            <a class="page-link" href="${pageContext.request.contextPath}/viewMatches?p=${i}">${i}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </nav>
+
+
+
+            <!-- Core -->
+            <script src="assets/js/core/jquery.min.js"></script>
+            <script src="assets/js/core/popper.min.js"></script>
+            <script src="assets/js/core/bootstrap.min.js"></script>
+            <script>
+                // Get the container element
+                $(document).ready(function () {
+                    $(".pagination li").each(function () {
+                        if ($(this).attr('value') == ${currentPage}) {
+                            console.log($('li'));
+                            $(this).addClass("active");
+                        }
+                    });
+                });
+            </script>
+            <!-- Theme JS -->
+
+            <script src="assets/js/blk-design-system.min.js"></script>
         </div>
         <jsp:include page="_footer.jsp"></jsp:include>
     </body>
