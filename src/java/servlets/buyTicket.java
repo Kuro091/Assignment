@@ -77,6 +77,7 @@ public class buyTicket extends BaseServlet {
         String username = request.getParameter("username");
         String matchIDStr = request.getParameter("matchID");
         UserAccount user = getUserDao().getUserbyName(username);
+        request.setAttribute("user", user);
         int matchID = 0;
 
         try {
@@ -85,22 +86,41 @@ public class buyTicket extends BaseServlet {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        
-          int number_of_ticket_availble = 0;
-        ArrayList<Ticket> ticket = getTicketDao().getTicketByMatchID(matchID); 
-        for(Ticket t : ticket){
-            if(t.getIsAvailable() == 1){
-               number_of_ticket_availble++;
-            }
-            
-        }
         Match match = getMatchDao().getMatchByID(matchID);
-        
-        request.setAttribute("match", match);
-        request.setAttribute("user", user);
-        request.setAttribute("ticket", number_of_ticket_availble);
-        forward(request, response, "/WEB-INF/views/buyTicket.jsp");
 
+        ArrayList<Receipt> receipt = getReceiptDao().getAllReceiptByUserID(user.getUserID());
+
+        int check_receipt = 0;
+        Receipt r1 = null;
+        // kiểm tra xem có hóa đơn nào chưa thanh toán
+        for (Receipt r : receipt) {
+            if (r.isStatus() == false) {
+                check_receipt++;
+                r1 = new Receipt(r.getReceiptID(), r.getUserID(), r.getTotalprice(), r.getTotalticket(), r.isStatus());
+            }
+        }
+        //
+        if (check_receipt == 0) {// nếu tất cả các hóa đơn đã được thanh toán
+            int number_of_ticket_availble = 0;
+            ArrayList<Ticket> ticket = getTicketDao().getTicketByMatchID(matchID);
+            for (Ticket t : ticket) {
+                if (t.getIsAvailable() == 1) {
+                    number_of_ticket_availble++;
+                }
+
+            }
+            request.setAttribute("match", match);
+
+            request.setAttribute("ticket", number_of_ticket_availble);
+            forward(request, response, "/WEB-INF/views/buyTicket.jsp");
+        } else { // nếu có hóa đơn chưa được thanh toán
+            String message = "Xin hãy thanh toán hóa đơn chưa được xử lí";
+            request.setAttribute("message", message);
+            request.setAttribute("receipt", r1);
+            request.setAttribute("matchid", match.getMatchID());
+
+            forward(request, response, "/WEB-INF/views/checkout.jsp");
+        }
     }
 
     /**

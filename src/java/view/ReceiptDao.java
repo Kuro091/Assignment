@@ -102,8 +102,24 @@ public class ReceiptDao {
         return r;
     }
     
-   // public ArrayList<Receipt> getReceipt(){
+    
+    
+   public ArrayList<Receipt> getAllReceiptByUserID(int id){
+        ArrayList<Receipt> receipt = new ArrayList<>();
         
-   // }
+        try{
+            String sql = "select * from Receipt where UserID = ?";
+            PreparedStatement psmt = connection.prepareStatement(sql);
+            psmt.setInt(1, id);
+            ResultSet rs = psmt.executeQuery();
+            while(rs.next()){
+                Receipt r = new Receipt(rs.getInt(1),rs.getInt(2),rs.getFloat(3),rs.getInt(4),rs.getBoolean(5));
+                receipt.add(r);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return receipt;
+    }
     
 }
