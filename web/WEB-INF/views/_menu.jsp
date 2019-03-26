@@ -35,15 +35,16 @@
                     <li class="nav-item">
                         <a class="nav-link disabled" href="${pageContext.request.contextPath}/viewMatches?p=1">View available matches</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="${pageContext.request.contextPath}/addCredit">Add credit</a>
-                    </li>
+
                     <c:if test="${loginedUser.getMainRole()=='ADMIN'}">
                         <li class="nav-item">
                             <a class="nav-link disabled" href="${pageContext.request.contextPath}/adminPanel">Admin Panel</a>
                         </li>
                     </c:if>
                     <c:if test="${loginedUser.getMainRole()=='USER'}">
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="${pageContext.request.contextPath}/addCredit">Add credit</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link disabled" href="${pageContext.request.contextPath}/viewOrders">View orders</a>
                         </li>

@@ -101,6 +101,15 @@ public class buyTicket extends BaseServlet {
             // hết vé hoặc số vé mua lớn hơn số vé còn lại
             message = " Không đủ vé để mua";
             amount = 0;
+            
+            request.setAttribute("message", message);
+            request.setAttribute("user", user);
+            Match m = getMatchDao().getMatchByID(matchID);
+            request.setAttribute("match", m);
+            String ticketLeft = request.getParameter("ticketLeft");
+            request.setAttribute("matchid", matchIDStr);
+            request.setAttribute("ticket", ticketLeft);
+            forward(request, response, "/WEB-INF/views/buyTicket.jsp");
 
         }
         
